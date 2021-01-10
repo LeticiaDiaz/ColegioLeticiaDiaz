@@ -44,6 +44,14 @@ app.post("/registro/alumno", function (req, res) {
     {
       email: req.body.email,
       password: req.body.password,
+      nombre: req.body.nombre,
+      apellidos: req.body.apellidos,
+      nacimiento: req.body.nacimiento,
+      curso: req.body.curso,
+      madre: req.body.madre,
+      telefonomadre: req.body.telefonomadre,
+      padre: req.body.padre,
+      telefonopadre: req.body.telefonopadre,
     },
     function (err, datos) {
       if (err !== null) {

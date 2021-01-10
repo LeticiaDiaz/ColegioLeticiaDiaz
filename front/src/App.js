@@ -1,5 +1,5 @@
 import "./App.css";
-import Login from "./Login";
+import Registro from "./Registro";
 
 import { useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
@@ -16,7 +16,8 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <Route exact path="/registro/alumno">
+        <Route exact path="/registro">
+          <Registro />
         </Route>
       </BrowserRouter>
     </div>
