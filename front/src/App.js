@@ -1,10 +1,14 @@
 import "./App.css";
 import Registro from "./Registro";
+import Cabecera from "./Cabecera"
+import Login from "./Login"
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
 function App() {
+  const [sesion, setSesion] = useState(false)
+
   useEffect(() => {
     fetch("http://localhost:3001")
       .then((res) => res.json())
@@ -13,14 +17,17 @@ function App() {
       });
   }, []);
 
+
   return (
-    <div>
       <BrowserRouter>
+      <Cabecera sesion={sesion} />
+        <Route exact path="/login">
+          <Login setSesion={setSesion}/>
+        </Route>
         <Route exact path="/registro">
           <Registro />
         </Route>
       </BrowserRouter>
-    </div>
   );
 }
 

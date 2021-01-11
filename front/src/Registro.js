@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { Form, Button, Container, Alert, Col } from "react-bootstrap";
 import "./App.css";
 
 function Registro(props) {
@@ -56,6 +56,14 @@ function Registro(props) {
       body: JSON.stringify({
         email: email,
         password: password,
+        nombre: nombre,
+        apellidos: apellidos,
+        nacimiento: nacimiento,
+        curso: curso,
+        madre: madre,
+        telefonomadre: telefonomadre,
+        padre: padre,
+        telefonopadre: telefonopadre,
       }),
     })
       .then(function (res) {
@@ -63,127 +71,134 @@ function Registro(props) {
       })
       .then(function (datos) {
         console.log(datos);
-        setAlert(datos.mensaje);
+        setAlert(<Alert variant="success">{datos.mensaje}</Alert>);
       });
   }
   return (
     <Container>
-      <Row>
-        <Col>
-    <Form>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Correo electrónico</Form.Label>
-        <Form.Control
-          value={email}
-          onChange={registroEmail}
-          type="email"
-          placeholder=""
-        />
-      </Form.Group>
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label>Contraseña</Form.Label>
-        <Form.Control
-          value={password}
-          onChange={registroPassword}
-          type="password"
-          placeholder=""
-        />
-      </Form.Group>
-      <Form.Group controlId="formBasicNombre">
-        <Form.Label>Nombre alumnx</Form.Label>
-        <Form.Control
-          value={nombre}
-          onChange={registroNombre}
-          type="input"
-          placeholder=""
-        />
-      </Form.Group>
-      <Form.Group controlId="formBasicApellido">
-        <Form.Label>Apellidos alumnx</Form.Label>
-        <Form.Control
-          value={apellidos}
-          onChange={registroApellidos}
-          type="input"
-          placeholder=""
-        />
-      </Form.Group>
-      <Form.Group controlId="formBasicFecha">
-        <Form.Label>Fecha de nacimiento</Form.Label>
-        <Form.Control
-          value={nacimiento}
-          onChange={registroNacimiento}
-          type="date"
-        />
-      </Form.Group>
-      <Form.Group controlId="formBasicCurso">
-        <Form.Label>Curso</Form.Label>
-        <Form.Control as="select" onChange={registroCurso}>
-          <option disabled selected>
-            Selecciona curso actual
-          </option>
-          <option value="InfantilCero">
-            Primer ciclo 0 a 3 años (Infantil)
-          </option>
-          <option value="InfantilTres">3 años (Infantil)</option>
-          <option value="InfantilCuatro">4 años (Infantil)</option>
-          <option value="InfantilCinco">5 años (Infantil)</option>
-          <option value="PrimariaUno">1º (Primaria)</option>
-          <option value="PrimariaDos">2º (Primaria)</option>
-          <option value="PrimariaTres">3º (Primaria)</option>
-          <option value="PrimariaCuatro">4º (Primaria)</option>
-          <option value="PrimariaCinco">5º (Primaria)</option>
-          <option value="PrimariaSeis">6º (Primaria)</option>
-          <option value="EsoUno">1º (ESO)</option>
-          <option value="EsoDos">2º (ESO)</option>
-          <option value="EsoTres">3º (ESO)</option>
-          <option value="EsoCuatro">4º (ESO)</option>
-        </Form.Control>
-      </Form.Group>
-      <Form.Group controlId="formBasicNombremadre">
-        <Form.Label>Nombre madre/padre 1</Form.Label>
-        <Form.Control
-          value={madre}
-          onChange={registroMadre}
-          type="input"
-          placeholder=""
-        />
-      </Form.Group>
-      <Form.Group controlId="formBasicTelefonomadre">
-        <Form.Label>Teléfono madre/padre 1</Form.Label>
-        <Form.Control
-          value={telefonomadre}
-          onChange={registroTelefonomadre}
-          type="tel"
-          placeholder=""
-        />
-      </Form.Group>
-      <Form.Group controlId="formBasicNombrepadre">
-        <Form.Label>Nombre madre/padre 2</Form.Label>
-        <Form.Control
-          value={padre}
-          onChange={registroPadre}
-          type="input"
-          placeholder=""
-        />
-      </Form.Group>
-      <Form.Group controlId="formBasicTelefonopadre">
-        <Form.Label>Teléfono madre/padre 2</Form.Label>
-        <Form.Control
-          value={telefonopadre}
-          onChange={registroTelefonopadre}
-          type="tel"
-          placeholder=""
-        />
-      </Form.Group>
+      <Form>
+        <Form.Row>
+          <Form.Group as={Col} controlId="formBasicEmail">
+            <Form.Label>Correo electrónico</Form.Label>
+            <Form.Control
+              value={email}
+              onChange={registroEmail}
+              type="email"
+              placeholder=""
+            />
+          </Form.Group>
+          <Form.Group as={Col} controlId="formBasicPassword">
+            <Form.Label>Contraseña</Form.Label>
+            <Form.Control
+              value={password}
+              onChange={registroPassword}
+              type="password"
+              placeholder=""
+            />
+          </Form.Group>
+        </Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} controlId="formBasicNombre">
+            <Form.Label>Nombre alumnx</Form.Label>
+            <Form.Control
+              value={nombre}
+              onChange={registroNombre}
+              type="input"
+              placeholder=""
+            />
+          </Form.Group>
+          <Form.Group as={Col} controlId="formBasicApellido">
+            <Form.Label>Apellidos alumnx</Form.Label>
+            <Form.Control
+              value={apellidos}
+              onChange={registroApellidos}
+              type="input"
+              placeholder=""
+            />
+          </Form.Group>
+        </Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} controlId="formBasicFecha">
+            <Form.Label>Fecha de nacimiento</Form.Label>
+            <Form.Control
+              value={nacimiento}
+              onChange={registroNacimiento}
+              type="date"
+            />
+          </Form.Group>
+          <Form.Group as={Col} controlId="formBasicCurso">
+            <Form.Label>Curso</Form.Label>
+            <Form.Control as="select" onChange={registroCurso}>
+              <option disabled selected>
+                Selecciona curso actual
+              </option>
+              <option value="InfantilCero">
+                Primer ciclo 0 a 3 años (Infantil)
+              </option>
+              <option value="InfantilTres">3 años (Infantil)</option>
+              <option value="InfantilCuatro">4 años (Infantil)</option>
+              <option value="InfantilCinco">5 años (Infantil)</option>
+              <option value="PrimariaUno">1º (Primaria)</option>
+              <option value="PrimariaDos">2º (Primaria)</option>
+              <option value="PrimariaTres">3º (Primaria)</option>
+              <option value="PrimariaCuatro">4º (Primaria)</option>
+              <option value="PrimariaCinco">5º (Primaria)</option>
+              <option value="PrimariaSeis">6º (Primaria)</option>
+              <option value="EsoUno">1º (ESO)</option>
+              <option value="EsoDos">2º (ESO)</option>
+              <option value="EsoTres">3º (ESO)</option>
+              <option value="EsoCuatro">4º (ESO)</option>
+            </Form.Control>
+          </Form.Group>
+        </Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} controlId="formBasicNombremadre">
+            <Form.Label>Nombre madre/padre 1</Form.Label>
+            <Form.Control
+              value={madre}
+              onChange={registroMadre}
+              type="input"
+              placeholder=""
+            />
+          </Form.Group>
+          <Form.Group as={Col} controlId="formBasicTelefonomadre">
+            <Form.Label>Teléfono madre/padre 1</Form.Label>
+            <Form.Control
+              value={telefonomadre}
+              onChange={registroTelefonomadre}
+              type="tel"
+              placeholder=""
+            />
+          </Form.Group>
+        </Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} controlId="formBasicNombrepadre">
+            <Form.Label>Nombre madre/padre 2</Form.Label>
+            <Form.Control
+              value={padre}
+              onChange={registroPadre}
+              type="input"
+              placeholder=""
+            />
+          </Form.Group>
+          <Form.Group as={Col} controlId="formBasicTelefonopadre">
+            <Form.Label>Teléfono madre/padre 2</Form.Label>
+            <Form.Control
+              value={telefonopadre}
+              onChange={registroTelefonopadre}
+              type="tel"
+              placeholder=""
+            />
+          </Form.Group>
+        </Form.Row>
+        <Form.Group controlId="formBasicBoton">
+          <Button variant="primary" onClick={enviarRegistro}>
+            Enviar
+          </Button>
+        </Form.Group>
 
-
-      <Button variant="primary" onClick={enviarRegistro}>
-        Enviar
-      </Button>
-      {alert}
-    </Form>
-    </Col>
-      </Row>
+        <Form.Group controlId="formBasicRespuesta">{alert}</Form.Group>
+      </Form>
     </Container>
   );
 }

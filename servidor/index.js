@@ -12,12 +12,69 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-MongoClient.connect(config.mongopath, function (err, client) {
+MongoClient.connect(config.mongopath,{
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}, function (err, client) {
   if (err !== null) {
     console.log(err);
   } else {
     db = client.db("colegio");
   }
+});
+
+const session = require("express-session");
+
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+const LocalStrategy = require("passport-local").Strategy;
+
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: "email",
+    },
+    function (email, password, done) {
+      db.collection("alumnos")
+        .find({ email: email })
+        .toArray(function (err, users) {
+          if (users.length === 0) {
+            done(null, false);
+          }
+          const user = users[0];
+          if (password === user.password) {
+            return done(null, user);
+          } else {
+            return done(null, false);
+          }
+        });
+    }
+  )
+);
+
+passport.serializeUser(function (user, done) {
+  done(null, user.email);
+});
+
+passport.deserializeUser(function (id, done) {
+  db.collection("alumnos")
+    .find({ email: id })
+    .toArray(function (err, users) {
+      if (users.length === 0) {
+        done(null, null);
+      }
+      done(null, users[0]);
+    });
 });
 
 app.post(
@@ -34,9 +91,9 @@ app.get("/api/fail", function (req, res) {
 
 app.get("/api", function (req, res) {
   if (req.isAuthenticated() === false) {
-    return res.status(401).send({ mensaje: "necesitas loguearte" });
+    return res.status(401).send({ error: true, mensaje: "necesitas loguearte" });
   }
-  res.send({ mensaje: "logueado correctamente" });
+  res.send({error: false,  mensaje: "logueado correctamente" });
 });
 
 app.post("/registro/alumno", function (req, res) {
@@ -63,75 +120,6 @@ app.post("/registro/alumno", function (req, res) {
   );
 });
 
-const session = require("express-session");
-app.use(
-  session({
-    secret: "secret",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
-const LocalStrategy = require("passport-local").Strategy;
-passport.use(
-  new LocalStrategy(
-    {
-      usernameField: "email",
-    },
-    function (email, password, done) {
-      db.collection("alumnos")
-        .find({ email: email })
-        .toArray(function (err, users) {
-          if (users.length === 0) {
-            done(null, false);
-          }
-          const user = users[0];
-          if (password === user.password) {
-            return done(null, user);
-          } else {
-            return done(null, false);
-          }
-        });
-    }
-  )
-);
-
-new LocalStrategy(
-  {
-    usernameField: "email",
-  },
-  function (email, password, done) {
-    db.collection("alumnos")
-      .find({ email: email })
-      .toArray(function (err, users) {
-        if (users.length === 0) {
-          done(null, false);
-        }
-        const user = users[0];
-        if (password === user.password) {
-          return done(null, user);
-        } else {
-          return done(null, false);
-        }
-      });
-  }
-);
-
-passport.serializeUser(function (user, done) {
-  done(null, user.email);
-});
-
-passport.deserializeUser(function (id, done) {
-  db.collection("alumnos")
-    .find({ email: id })
-    .toArray(function (err, users) {
-      if (users.length === 0) {
-        done(null, null);
-      }
-      done(null, users[0]);
-    });
-});
 
 app.get("/api/user", function (req, res) {
   if (req.isAuthenticated()) {
