@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Table, ListGroup } from "react-bootstrap";
+import { Table, ListGroup, Container } from "react-bootstrap";
 import "./App.css";
 
 function Usuario(props) {
@@ -26,7 +26,39 @@ function Usuario(props) {
         setData(datos.data[0].horario);
         setIsloading(false);
       });
-  },[]);
+  },[props.usuario.usuario.curso]);
+
+  const primera = data.map((horario) => {
+    return <td>{horario.primera}</td>;
+  });
+  const segunda = data.map((horario) => {
+    return <td>{horario.segunda}</td>;
+  });
+  const tercera = data.map((horario) => {
+    return <td>{horario.tercera}</td>;
+  });
+  const cuarta = data.map((horario) => {
+    return <td>{horario.cuarta}</td>;
+  });
+  const quinta = data.map((horario) => {
+    return <td>{horario.quinta}</td>;
+  });
+  const sexta = data.map((horario) => {
+    return <td>{horario.sexta}</td>;
+  });
+  const septima = data.map((horario) => {
+    return <td>{horario.septima}</td>;
+  });
+  const octava = data.map((horario) => {
+    return <td>{horario.octava}</td>;
+  });
+
+  function nombreReal(curso){
+    switch(curso){
+      case "EsoCuatro":
+        return "4º de la E.S.O."
+    }
+  }
 
   console.log(data);
   console.log(props.usuario.usuario.apellidos)
@@ -35,16 +67,18 @@ function Usuario(props) {
   } else {
     return  (
       <>
+      <Container>
        <ListGroup>
-          <ListGroup.Item>Nombre alumnx: {props.usuario.usuario.nombre}</ListGroup.Item>
-         <ListGroup.Item>{props.usuario.usuario.apellidos}</ListGroup.Item>
-        <ListGroup.Item>{props.usuario.usuario.nacimiento}</ListGroup.Item>
-         <ListGroup.Item>{props.usuario.usuario.madre}</ListGroup.Item>
-          <ListGroup.Item>{props.usuario.usuario.telefonomadre}</ListGroup.Item>
-          <ListGroup.Item>{props.usuario.usuario.padre}</ListGroup.Item>
-          <ListGroup.Item>{props.usuario.usuario.telefonopadre}</ListGroup.Item> 
+          <ListGroup.Item><strong>Nombre alumnx:</strong> {props.usuario.usuario.nombre}</ListGroup.Item>
+         <ListGroup.Item><strong>Apellidos alumnx:</strong> {props.usuario.usuario.apellidos}</ListGroup.Item>
+        <ListGroup.Item><strong>Fecha de nacimiento:</strong> {props.usuario.usuario.nacimiento}</ListGroup.Item>
+         <ListGroup.Item><strong>Curso actual:</strong> {nombreReal(props.usuario.usuario.curso)}</ListGroup.Item>
+         <ListGroup.Item><strong>Nombre madre/padre 1:</strong> {props.usuario.usuario.madre}</ListGroup.Item>
+          <ListGroup.Item><strong>Teléfono madre/padre 1:</strong> {props.usuario.usuario.telefonomadre}</ListGroup.Item>
+          <ListGroup.Item><strong>Nombre madre/padre 2:</strong> {props.usuario.usuario.padre}</ListGroup.Item>
+          <ListGroup.Item><strong>Teléfono madre/padre 2:</strong> {props.usuario.usuario.telefonopadre}</ListGroup.Item> 
         </ListGroup> 
-        Hola
+        </Container>
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -57,7 +91,39 @@ function Usuario(props) {
             </tr>
           </thead>
           <tbody>
+          <tr>
+              <td>08:00-09:00</td>
+              {primera}
+            </tr>
             <tr>
+              <td>09:00-10:00</td>
+              {segunda}
+            </tr>
+            <tr>
+              <td>10:00-10:30</td>
+              {tercera}
+            </tr>
+            <tr>
+              <td>10:30-11:30</td>
+              {cuarta}
+            </tr>
+            <tr>
+              <td>11:30-12:30</td>
+              {quinta}
+            </tr>
+            <tr>
+              <td>12:30-13:30</td>
+              {sexta}
+            </tr>
+            <tr>
+              <td>13:30-14:30</td>
+              {septima}
+            </tr>
+            <tr>
+              <td>14:30-15:30</td>
+              {octava}
+            </tr>
+           {/*  <tr>
               <td>08:00-09:00</td>
               <td>{data[0].primera}</td>
               <td>{data[1].primera}</td>
@@ -120,7 +186,7 @@ function Usuario(props) {
               <td>{data[2].octava}</td>
               <td>{data[3].octava}</td>
               <td>{data[4].octava}</td>
-            </tr>
+            </tr> */}
           </tbody>
         </Table>
       </>
