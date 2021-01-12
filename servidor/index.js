@@ -86,17 +86,22 @@ app.post(
 );
 
 app.get("/api/fail", function (req, res) {
-  res.status(401).send({ mensaje: "denegado" });
+  res.status(401).send({ error: true, mensaje: "Login Incorrecto" });
 });
 
 app.get("/api", function (req, res) {
-  if (req.isAuthenticated() === false) {
-    return res.status(401).send({ error: true, mensaje: "necesitas loguearte" });
+  const usuario = {
+    email: req.user.email,
+    nombre: req.user.nombre,
+    curso: req.user.curso
   }
-  res.send({error: false,  mensaje: "logueado correctamente" });
+  if (req.isAuthenticated() === false) {
+    return res.status(401).send({ error: true, mensaje: "Necesitas Loguearte" });
+  }
+  res.send({error: false,  mensaje: "Login Correcto", usuario: usuario });
 });
 
-app.post("/registro/alumno", function (req, res) {
+app.post("/api/register", function (req, res) {
   db.collection("alumnos").insertOne(
     {
       email: req.body.email,
@@ -127,5 +132,25 @@ app.get("/api/user", function (req, res) {
   }
   res.send({ nombre: "No logueado" });
 });
+
+
+
+app.put("/horarios", function(req, res){
+  db.collection("horarios")
+    .find({ curso: req.body.curso })
+    .toArray(function (err, data) {
+      if (data.length === 0) {
+        res.send({error: true, mensaje:"No se ha encontrado el curso"})
+      }else{
+        res.send({error: false, data: data})
+      }
+      
+    });
+})
+
+
+
+
+
 
 app.listen(3001);

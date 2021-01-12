@@ -48,7 +48,7 @@ function Registro(props) {
   };
 
   function enviarRegistro() {
-    fetch("/registro/alumno", {
+    fetch("/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

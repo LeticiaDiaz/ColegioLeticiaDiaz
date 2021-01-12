@@ -11,11 +11,11 @@ function Cabecera(props) {
     <Navbar bg="dark" variant="dark">
       <Navbar.Brand href="/">Colegio Leticia Díaz</Navbar.Brand>
       <Nav className="mr-auto">
-        <Nav.Link href="./inicio">Inicio</Nav.Link>
-        <Nav.Link href="./registro">Registro</Nav.Link>
-        <Nav.Link href="./contacto">Contacto</Nav.Link>
+        <Nav.Link href="/inicio">Inicio</Nav.Link>
+        <Nav.Link href="/registro">Registro</Nav.Link>
+        <Nav.Link href="/contacto">Contacto</Nav.Link>
       </Nav>
-      <Nav.Link href="./usuario">Perfil usuario</Nav.Link>
+      <Link to="/usuario">Perfil usuario</Link>
     </Navbar>
   );
 }else {
@@ -23,9 +23,9 @@ function Cabecera(props) {
     <Navbar bg="dark" variant="dark">
       <Navbar.Brand href="/">Colegio Leticia Díaz</Navbar.Brand>
       <Nav className="mr-auto">
-        <Nav.Link href="./Inicio">Inicio</Nav.Link>
-        <Nav.Link href="./Registro">Registro</Nav.Link>
-        <Nav.Link href="./Contacto">Contacto</Nav.Link>
+        <Nav.Link href="/inicio">Inicio</Nav.Link>
+        <Nav.Link href="/registro">Registro</Nav.Link>
+        <Nav.Link href="/contacto">Contacto</Nav.Link>
       </Nav>
       <Link to="/login">Iniciar sesion</Link>
     </Navbar>
