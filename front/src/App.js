@@ -59,7 +59,7 @@ function App() {
           <Registro />
         </Route>
         <Route exact path="/usuario" >
-          <Usuario usuario= {usuario} />
+          <Usuario usuario={usuario} />
         </Route>
       </BrowserRouter>
   );

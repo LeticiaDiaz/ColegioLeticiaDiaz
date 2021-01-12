@@ -12,16 +12,20 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-MongoClient.connect(config.mongopath,{
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}, function (err, client) {
-  if (err !== null) {
-    console.log(err);
-  } else {
-    db = client.db("colegio");
+MongoClient.connect(
+  config.mongopath,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  function (err, client) {
+    if (err !== null) {
+      console.log(err);
+    } else {
+      db = client.db("colegio");
+    }
   }
-});
+);
 
 const session = require("express-session");
 
@@ -32,7 +36,6 @@ app.use(
     saveUninitialized: false,
   })
 );
-
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -93,12 +96,20 @@ app.get("/api", function (req, res) {
   const usuario = {
     email: req.user.email,
     nombre: req.user.nombre,
-    curso: req.user.curso
-  }
+    curso: req.user.curso,
+    apellidos: req.user.apellidos,
+    nacimiento: req.user.nacimiento,
+    madre: req.user.madre,
+    telefonomadre: req.user.telefonomadre,
+    padre: req.user.padre,
+    telefonopadre: req.user.telefonopadre,
+  };
   if (req.isAuthenticated() === false) {
-    return res.status(401).send({ error: true, mensaje: "Necesitas Loguearte" });
+    return res
+      .status(401)
+      .send({ error: true, mensaje: "Necesitas Loguearte" });
   }
-  res.send({error: false,  mensaje: "Login Correcto", usuario: usuario });
+  res.send({ error: false, mensaje: "Login Correcto", usuario: usuario });
 });
 
 app.post("/api/register", function (req, res) {
@@ -125,7 +136,6 @@ app.post("/api/register", function (req, res) {
   );
 });
 
-
 app.get("/api/user", function (req, res) {
   if (req.isAuthenticated()) {
     return res.send({ nombre: req.user.name });
@@ -133,24 +143,16 @@ app.get("/api/user", function (req, res) {
   res.send({ nombre: "No logueado" });
 });
 
-
-
-app.put("/horarios", function(req, res){
+app.put("/horarios", function (req, res) {
   db.collection("horarios")
     .find({ curso: req.body.curso })
     .toArray(function (err, data) {
       if (data.length === 0) {
-        res.send({error: true, mensaje:"No se ha encontrado el curso"})
-      }else{
-        res.send({error: false, data: data})
+        res.send({ error: true, mensaje: "No se ha encontrado el curso" });
+      } else {
+        res.send({ error: false, data: data });
       }
-      
     });
-})
-
-
-
-
-
+});
 
 app.listen(3001);

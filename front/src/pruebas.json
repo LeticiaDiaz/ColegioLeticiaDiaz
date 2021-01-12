@@ -1,8 +1,8 @@
 {
-    "curso": "EsoUno",
+    "curso": "InfantilTres",
     "horario": [
-    {"primera": "Educación física", "segunda": "Lengua y literatura", "tercera": "Recreo", "cuarta": "Matemáticas", "quinta": "Geografía e historia", "sexta": "Inglés", "séptima": "Comedor", "octava": "Tecnología"},
-    {"primera": "Francés", "segunda": "Tutoría", "tercera": "Recreo", "cuarta": "Matemáticas", "quinta": "Física y química", "sexta": "Inglés", "séptima": "Comedor", "octava": "Tecnología"},
+    {"primera": "Lectoescritura", "segunda": "Inglés", "tercera": "Recreo", "cuarta": "Lenguaje plástico", "quinta": "Psicomotricidad", "sexta": "Speaking", "séptima": "Comedor", "octava": "Lógico matemáticas"},
+    {"primera": "Lectoescritura", "segunda": "Lógico matemáticas", "tercera": "Recreo", "cuarta": "", "quinta": "Física y química", "sexta": "Inglés", "séptima": "Comedor", "octava": "Tecnología"},
     {"primera": "Lengua y literatura", "segunda": "Física y química", "tercera": "Recreo", "cuarta": "Música", "quinta": "Matemáticas", "sexta": "Inglés", "séptima": "Comedor", "octava": "Educación plástica"},
     {"primera": "Educación física", "segunda": "Geografía e historia", "tercera": "Recreo", "cuarta": "Música", "quinta": "Francés", "sexta": "Tecnología", "séptima": "Comedor", "octava": "Lengua y literatura"},
     {"primera": "Matemáticas", "segunda": "Speaking", "tercera": "Recreo", "cuarta": "Lengua y literatura", "quinta": "Geografía e historia", "sexta": "Religión", "séptima": "Comedor", "octava": "Física y química"}
