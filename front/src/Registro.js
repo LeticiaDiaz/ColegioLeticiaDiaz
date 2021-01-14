@@ -10,12 +10,13 @@ function Registro(props) {
   const [apellidos, setApellidos] = useState("");
   const [nacimiento, setNacimiento] = useState("");
   const [curso, setCurso] = useState("");
+  const [intolerancia, setIntolerancia] = useState("")
   const [madre, setMadre] = useState("");
   const [telefonomadre, setTelefonomadre] = useState("");
   const [padre, setPadre] = useState("");
   const [telefonopadre, setTelefonopadre] = useState("");
   const [alert, setAlert] = useState("");
-
+  
   const registroEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -33,6 +34,9 @@ function Registro(props) {
   };
   const registroCurso = (e) => {
     setCurso(e.target.value);
+  };
+  const registroIntolerancia = (e) => {
+    setIntolerancia(e.target.value);
   };
   const registroMadre = (e) => {
     setMadre(e.target.value);
@@ -60,6 +64,7 @@ function Registro(props) {
         apellidos: apellidos,
         nacimiento: nacimiento,
         curso: curso,
+        intolerancia: intolerancia,
         madre: madre,
         telefonomadre: telefonomadre,
         padre: padre,
@@ -151,6 +156,20 @@ function Registro(props) {
             </Form.Control>
           </Form.Group>
         </Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} controlId="formBasicIntolerancia">
+            <Form.Label>¿Tienes alguna intolerancia alimentaria?</Form.Label>
+            <Form.Control as="select" onChange={registroIntolerancia}>
+              <option disabled selected>
+                Selecciona si tienes alguna intolerancia</option>
+              <option value="Gluten">
+                Intolerante al gluten
+              </option>
+              <option value="Lactosa">Intolerante a la lactosa</option>
+              <option value="Normal">Puedo comer de todo</option>
+            </Form.Control>
+          </Form.Group>
+          </Form.Row>
         <Form.Row>
           <Form.Group as={Col} controlId="formBasicNombremadre">
             <Form.Label>Nombre madre/padre 1</Form.Label>

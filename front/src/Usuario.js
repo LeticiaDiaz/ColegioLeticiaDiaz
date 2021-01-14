@@ -3,7 +3,8 @@ import { Table, ListGroup, Container } from "react-bootstrap";
 import "./App.css";
 
 function Usuario(props) {
-  const [data, setData] = useState([]);
+  const [curso, setCurso] = useState([]);
+  const [intolerancia, setIntolerancia] = useState([]);
   const [isloading, setIsloading] = useState(false);
 
   console.log(props.usuario);
@@ -23,61 +24,142 @@ function Usuario(props) {
       .then((respuesta) => respuesta.json())
       .then((datos) => {
         console.log(datos);
-        setData(datos.data[0].horario);
+        setCurso(datos.data[0].horario);
         setIsloading(false);
       });
-  },[props.usuario.usuario.curso]);
+  }, [props.usuario.usuario.curso]);
 
-  const primera = data.map((horario) => {
+  const primera = curso.map((horario) => {
     return <td>{horario.primera}</td>;
   });
-  const segunda = data.map((horario) => {
+  const segunda = curso.map((horario) => {
     return <td>{horario.segunda}</td>;
   });
-  const tercera = data.map((horario) => {
+  const tercera = curso.map((horario) => {
     return <td>{horario.tercera}</td>;
   });
-  const cuarta = data.map((horario) => {
+  const cuarta = curso.map((horario) => {
     return <td>{horario.cuarta}</td>;
   });
-  const quinta = data.map((horario) => {
+  const quinta = curso.map((horario) => {
     return <td>{horario.quinta}</td>;
   });
-  const sexta = data.map((horario) => {
+  const sexta = curso.map((horario) => {
     return <td>{horario.sexta}</td>;
   });
-  const septima = data.map((horario) => {
+  const septima = curso.map((horario) => {
     return <td>{horario.septima}</td>;
   });
-  const octava = data.map((horario) => {
+  const octava = curso.map((horario) => {
     return <td>{horario.octava}</td>;
   });
 
-  function nombreReal(curso){
-    switch(curso){
+  function nombreReal(curso) {
+    switch (curso) {
+      case "InfantilTres":
+        return "3 años (Infantil)";
+      case "InfantilCuatro":
+        return "4 años (Infantil)";
+      case "InfantilCinco":
+        return "5 años (Infantil)";
+      case "PrimariaUno":
+        return "1º (Primaria)";
+      case "PrimariaDos":
+        return "2º (Primaria)";
+      case "PrimariaTres":
+        return "3º (Primaria)";
+      case "PrimariaCuatro":
+        return "4º (Primaria)";
+      case "PrimariaCinco":
+        return "5º (Primaria)";
+      case "PrimariaSeis":
+        return "6º (Primaria)";
+      case "EsoUno":
+        return "1º (ESO)";
+      case "EsoDos":
+        return "2º (ESO)";
+      case "EsoTres":
+        return "3º (ESO)";
       case "EsoCuatro":
-        return "4º de la E.S.O."
+        return "4º (ESO)";
     }
   }
 
-  console.log(data);
-  console.log(props.usuario.usuario.apellidos)
+  useEffect(() => {
+    console.log(props.usuario.usuario);
+    setIsloading(true);
+    fetch("/comedor", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        intolerancia: props.usuario.usuario.intolerancia,
+      }),
+    })
+      .then((respuesta) => respuesta.json())
+      .then((datos) => {
+        console.log(datos);
+        setIntolerancia(datos.data[0].comedor);
+        setIsloading(false);
+      });
+  }, [props.usuario.usuario.intolerancia]);
+
+  const primeros = intolerancia.map((comedor) => {
+    return <td>{comedor.primero}</td>;
+  });
+  const segundos = intolerancia.map((comedor) => {
+    return <td>{comedor.segundo}</td>;
+  });
+  const postres = intolerancia.map((comedor) => {
+    return <td>{comedor.postre}</td>;
+  });
+
   if (isloading) {
     return <div>Loading</div>;
   } else {
-    return  (
+    return (
       <>
-      <Container>
-       <ListGroup>
-          <ListGroup.Item><strong>Nombre alumnx:</strong> {props.usuario.usuario.nombre}</ListGroup.Item>
-         <ListGroup.Item><strong>Apellidos alumnx:</strong> {props.usuario.usuario.apellidos}</ListGroup.Item>
-        <ListGroup.Item><strong>Fecha de nacimiento:</strong> {props.usuario.usuario.nacimiento}</ListGroup.Item>
-         <ListGroup.Item><strong>Curso actual:</strong> {nombreReal(props.usuario.usuario.curso)}</ListGroup.Item>
-         <ListGroup.Item><strong>Nombre madre/padre 1:</strong> {props.usuario.usuario.madre}</ListGroup.Item>
-          <ListGroup.Item><strong>Teléfono madre/padre 1:</strong> {props.usuario.usuario.telefonomadre}</ListGroup.Item>
-          <ListGroup.Item><strong>Nombre madre/padre 2:</strong> {props.usuario.usuario.padre}</ListGroup.Item>
-          <ListGroup.Item><strong>Teléfono madre/padre 2:</strong> {props.usuario.usuario.telefonopadre}</ListGroup.Item> 
-        </ListGroup> 
+        <Container>
+          <ListGroup>
+            <ListGroup.Item>
+              <strong>Nombre alumnx:</strong> {props.usuario.usuario.nombre}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <strong>Apellidos alumnx:</strong>{" "}
+              {props.usuario.usuario.apellidos}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <strong>Fecha de nacimiento:</strong>{" "}
+              {props.usuario.usuario.nacimiento}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <strong>Curso actual:</strong>{" "}
+              {nombreReal(props.usuario.usuario.curso)}
+            </ListGroup.Item>
+            {
+              <ListGroup.Item>
+                <strong>Intolerancia alimentaria:</strong>{" "}
+                {props.usuario.usuario.intolerancia}
+              </ListGroup.Item>
+            }
+            <ListGroup.Item>
+              <strong>Nombre madre/padre 1:</strong>{" "}
+              {props.usuario.usuario.madre}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <strong>Teléfono madre/padre 1:</strong>{" "}
+              {props.usuario.usuario.telefonomadre}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <strong>Nombre madre/padre 2:</strong>{" "}
+              {props.usuario.usuario.padre}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <strong>Teléfono madre/padre 2:</strong>{" "}
+              {props.usuario.usuario.telefonopadre}
+            </ListGroup.Item>
+          </ListGroup>
         </Container>
         <Table striped bordered hover>
           <thead>
@@ -91,7 +173,7 @@ function Usuario(props) {
             </tr>
           </thead>
           <tbody>
-          <tr>
+            <tr>
               <td>08:00-09:00</td>
               {primera}
             </tr>
@@ -123,75 +205,126 @@ function Usuario(props) {
               <td>14:30-15:30</td>
               {octava}
             </tr>
-           {/*  <tr>
-              <td>08:00-09:00</td>
-              <td>{data[0].primera}</td>
-              <td>{data[1].primera}</td>
-              <td>{data[2].primera}</td>
-              <td>{data[3].primera}</td>
-              <td>{data[4].primera}</td>
+          </tbody>
+        </Table>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>MENU COMEDOR</th>
+              <th>Lunes</th>
+              <th>Martes</th>
+              <th>Miércoles</th>
+              <th>Jueves</th>
+              <th>Viernes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Primer Plato</td>
+              {primeros}
             </tr>
             <tr>
-              <td>09:00-10:00</td>
-              <td>{data[0].segunda}</td>
-              <td>{data[1].segunda}</td>
-              <td>{data[2].segunda}</td>
-              <td>{data[3].segunda}</td>
-              <td>{data[4].segunda}</td>
+              <td>Segundo Plato</td>
+              {segundos}
             </tr>
             <tr>
-              <td>10:00-10:30</td>
-              <td>{data[0].tercera}</td>
-              <td>{data[1].tercera}</td>
-              <td>{data[2].tercera}</td>
-              <td>{data[3].tercera}</td>
-              <td>{data[4].tercera}</td>
+              <td>Postre</td>
+              {postres}
             </tr>
-            <tr>
-              <td>10:30-11:30</td>
-              <td>{data[0].cuarta}</td>
-              <td>{data[1].cuarta}</td>
-              <td>{data[2].cuarta}</td>
-              <td>{data[3].cuarta}</td>
-              <td>{data[4].cuarta}</td>
-            </tr>
-            <tr>
-              <td>11:30-12:30</td>
-              <td>{data[0].quinta}</td>
-              <td>{data[1].quinta}</td>
-              <td>{data[2].quinta}</td>
-              <td>{data[3].quinta}</td>
-              <td>{data[4].quinta}</td>
-            </tr>
-            <tr>
-              <td>12:30-13:30</td>
-              <td>{data[0].sexta}</td>
-              <td>{data[1].sexta}</td>
-              <td>{data[2].sexta}</td>
-              <td>{data[3].sexta}</td>
-              <td>{data[4].sexta}</td>
-            </tr>
-            <tr>
-              <td>13:30-14:30</td>
-              <td>{data[0].septima}</td>
-              <td>{data[1].septima}</td>
-              <td>{data[2].septima}</td>
-              <td>{data[3].septima}</td>
-              <td>{data[4].septima}</td>
-            </tr>
-            <tr>
-              <td>14:30-15:30</td>
-              <td>{data[0].octava}</td>
-              <td>{data[1].octava}</td>
-              <td>{data[2].octava}</td>
-              <td>{data[3].octava}</td>
-              <td>{data[4].octava}</td>
-            </tr> */}
           </tbody>
         </Table>
       </>
     );
   }
 }
+
+/* useEffect(() => {
+    setIsloading(true);
+    fetch("/comedor", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        curso: props.usuario.usuario.intolerancia,
+      }),
+    })
+      .then((respuesta) => respuesta.json())
+      .then((datos) => {
+        console.log(datos);
+        setData(datos.data[0].comedor);
+        setIsloading(false);
+      });
+  }, [props.usuario.usuario.intolerancia]);
+
+  const lunes = data.map((comedor) => {
+    return <td>{comedor.lunes}</td>;
+  });
+  const martes = data.map((comedor) => {
+    return <td>{comedor.martes}</td>;
+  });
+  const miercoles = data.map((comedor) => {
+    return <td>{comedor.miercoles}</td>;
+  });
+  const jueves = data.map((comedor) => {
+    return <td>{comedor.jueves}</td>;
+  });
+  const viernes = data.map((comedor) => {
+    return <td>{comedor.viernes}</td>;
+  });
+
+  if (isloading) {
+    return <div>Loading</div>;
+  } else {
+    return (
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>MENU COMEDOR</th>
+            <th>Lunes</th>
+            <th>Martes</th>
+            <th>Miércoles</th>
+            <th>Jueves</th>
+            <th>Viernes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>08:00-09:00</td>
+            {primera}
+          </tr>
+          <tr>
+            <td>09:00-10:00</td>
+            {segunda}
+          </tr>
+          <tr>
+            <td>10:00-10:30</td>
+            {tercera}
+          </tr>
+          <tr>
+            <td>10:30-11:30</td>
+            {cuarta}
+          </tr>
+          <tr>
+            <td>11:30-12:30</td>
+            {quinta}
+          </tr>
+          <tr>
+            <td>12:30-13:30</td>
+            {sexta}
+          </tr>
+          <tr>
+            <td>13:30-14:30</td>
+            {septima}
+          </tr>
+          <tr>
+            <td>14:30-15:30</td>
+            {octava}
+          </tr>
+        </tbody>
+      </Table>
+    );
+  }
+} */
 
 export default Usuario;

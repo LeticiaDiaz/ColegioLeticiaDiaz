@@ -97,12 +97,14 @@ app.get("/api", function (req, res) {
     email: req.user.email,
     nombre: req.user.nombre,
     curso: req.user.curso,
+    intolerancia: req.user.intolerancia,
     apellidos: req.user.apellidos,
     nacimiento: req.user.nacimiento,
     madre: req.user.madre,
     telefonomadre: req.user.telefonomadre,
     padre: req.user.padre,
     telefonopadre: req.user.telefonopadre,
+    
   };
   if (req.isAuthenticated() === false) {
     return res
@@ -121,6 +123,7 @@ app.post("/api/register", function (req, res) {
       apellidos: req.body.apellidos,
       nacimiento: req.body.nacimiento,
       curso: req.body.curso,
+      intolerancia: req.body.intolerancia,
       madre: req.body.madre,
       telefonomadre: req.body.telefonomadre,
       padre: req.body.padre,
@@ -149,6 +152,18 @@ app.put("/horarios", function (req, res) {
     .toArray(function (err, data) {
       if (data.length === 0) {
         res.send({ error: true, mensaje: "No se ha encontrado el curso" });
+      } else {
+        res.send({ error: false, data: data });
+      }
+    });
+});
+
+app.put("/comedor", function (req, res) {
+  db.collection("intolerancia")
+    .find({ intolerancia: req.body.intolerancia })
+    .toArray(function (err, data) {
+      if (data.length === 0) {
+        res.send({ error: true, mensaje: "No se ha encontrado ninguna intolerancia" });
       } else {
         res.send({ error: false, data: data });
       }
