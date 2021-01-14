@@ -1,9 +1,11 @@
 {
-    "intolerancia": "Gluten",
+    "intolerancia": "Lactosa",
     "comedor": [
-    {"lunes": "Pescado"},
-    {"martes": "Carne"},
-    { "miercoles": "Recreo"} ,{ "jueves": "Lenguaje plástico"} , {"viernes": "Psicomotricidad"} ,{"sexta": "Speaking"},{"séptima": "Comedor"}
-
+    {"primero": "Potaje de berros con garbanzos", "segundo": "Pollo a la riojana", "postre": "Fruta"},
+    {"primero": "Sopa de estrellitas", "segundo": "Paella de pescado", "postre": "Fruta"} ,
+    {"primero": "Sopa con pasta", "segundo": "Pollo deshuesado al limón", "postre": "Gelatina"} ,
+    {"primero": "Lentejas", "segundo": "Arroz a la cubana", "postre": "Plátano"} ,
+    {"primero": "Pasta a la napolitana", "segundo": "", "postre": "Helado sin lactosa"}
     ]}
+    
     

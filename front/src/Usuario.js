@@ -115,6 +115,18 @@ function Usuario(props) {
     return <td>{comedor.postre}</td>;
   });
 
+  function intoleranciaReal(intolerancia) {
+    switch (intolerancia) {
+      case "Gluten":
+        return "Celíaco";
+      case "Lactosa":
+        return "Intolerante a la lactosa";
+      case "Normal":
+        return "Sin intolerancias ni alergias alimenticias";
+    }
+  }
+
+
   if (isloading) {
     return <div>Loading</div>;
   } else {
@@ -140,7 +152,7 @@ function Usuario(props) {
             {
               <ListGroup.Item>
                 <strong>Intolerancia alimentaria:</strong>{" "}
-                {props.usuario.usuario.intolerancia}
+                {intoleranciaReal(props.usuario.usuario.intolerancia)}
               </ListGroup.Item>
             }
             <ListGroup.Item>
@@ -210,12 +222,12 @@ function Usuario(props) {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>MENU COMEDOR</th>
-              <th>Lunes</th>
-              <th>Martes</th>
-              <th>Miércoles</th>
-              <th>Jueves</th>
-              <th>Viernes</th>
+              <th>MENU COMEDOR (Semana 05)</th>
+              <th>Lunes 01</th>
+              <th>Martes 02</th>
+              <th>Miércoles 03</th>
+              <th>Jueves 04</th>
+              <th>Viernes 05</th>
             </tr>
           </thead>
           <tbody>
@@ -237,94 +249,5 @@ function Usuario(props) {
     );
   }
 }
-
-/* useEffect(() => {
-    setIsloading(true);
-    fetch("/comedor", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        curso: props.usuario.usuario.intolerancia,
-      }),
-    })
-      .then((respuesta) => respuesta.json())
-      .then((datos) => {
-        console.log(datos);
-        setData(datos.data[0].comedor);
-        setIsloading(false);
-      });
-  }, [props.usuario.usuario.intolerancia]);
-
-  const lunes = data.map((comedor) => {
-    return <td>{comedor.lunes}</td>;
-  });
-  const martes = data.map((comedor) => {
-    return <td>{comedor.martes}</td>;
-  });
-  const miercoles = data.map((comedor) => {
-    return <td>{comedor.miercoles}</td>;
-  });
-  const jueves = data.map((comedor) => {
-    return <td>{comedor.jueves}</td>;
-  });
-  const viernes = data.map((comedor) => {
-    return <td>{comedor.viernes}</td>;
-  });
-
-  if (isloading) {
-    return <div>Loading</div>;
-  } else {
-    return (
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>MENU COMEDOR</th>
-            <th>Lunes</th>
-            <th>Martes</th>
-            <th>Miércoles</th>
-            <th>Jueves</th>
-            <th>Viernes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>08:00-09:00</td>
-            {primera}
-          </tr>
-          <tr>
-            <td>09:00-10:00</td>
-            {segunda}
-          </tr>
-          <tr>
-            <td>10:00-10:30</td>
-            {tercera}
-          </tr>
-          <tr>
-            <td>10:30-11:30</td>
-            {cuarta}
-          </tr>
-          <tr>
-            <td>11:30-12:30</td>
-            {quinta}
-          </tr>
-          <tr>
-            <td>12:30-13:30</td>
-            {sexta}
-          </tr>
-          <tr>
-            <td>13:30-14:30</td>
-            {septima}
-          </tr>
-          <tr>
-            <td>14:30-15:30</td>
-            {octava}
-          </tr>
-        </tbody>
-      </Table>
-    );
-  }
-} */
 
 export default Usuario;
