@@ -3,63 +3,62 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Button, Container, Alert, Col } from "react-bootstrap";
 import "./App.css";
 
-function Registro(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [nombre, setNombre] = useState("");
-  const [apellidos, setApellidos] = useState("");
-  const [nacimiento, setNacimiento] = useState("");
-  const [curso, setCurso] = useState("");
-  const [intolerancia, setIntolerancia] = useState("");
-  const [madre, setMadre] = useState("");
-  const [telefonomadre, setTelefonomadre] = useState("");
-  const [padre, setPadre] = useState("");
-  const [telefonopadre, setTelefonopadre] = useState("");
+function Modificar(props) {
+  const [nombre, setNombre] = useState(props.usuario.usuario.nombre);
+  const [apellidos, setApellidos] = useState(props.usuario.usuario.apellidos);
+  const [nacimiento, setNacimiento] = useState(
+    props.usuario.usuario.nacimiento
+  );
+  const [curso, setCurso] = useState(props.usuario.usuario.curso);
+  const [intolerancia, setIntolerancia] = useState(
+    props.usuario.usuario.intolerancia
+  );
+  const [madre, setMadre] = useState(props.usuario.usuario.madre);
+  const [telefonomadre, setTelefonomadre] = useState(
+    props.usuario.usuario.telefonomadre
+  );
+  const [padre, setPadre] = useState(props.usuario.usuario.padre);
+  const [telefonopadre, setTelefonopadre] = useState(
+    props.usuario.usuario.telefonopadre
+  );
   const [alert, setAlert] = useState("");
 
-  const registroEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const registroPassword = (e) => {
-    setPassword(e.target.value);
-  };
-  const registroNombre = (e) => {
+  const modificarNombre = (e) => {
     setNombre(e.target.value);
   };
-  const registroApellidos = (e) => {
+  const modificarApellidos = (e) => {
     setApellidos(e.target.value);
   };
-  const registroNacimiento = (e) => {
+  const modificarNacimiento = (e) => {
     setNacimiento(e.target.value);
   };
-  const registroCurso = (e) => {
+  const modificarCurso = (e) => {
     setCurso(e.target.value);
   };
-  const registroIntolerancia = (e) => {
+  const modificarIntolerancia = (e) => {
     setIntolerancia(e.target.value);
   };
-  const registroMadre = (e) => {
+  const modificarMadre = (e) => {
     setMadre(e.target.value);
   };
-  const registroTelefonomadre = (e) => {
+  const modificarTelefonomadre = (e) => {
     setTelefonomadre(e.target.value);
   };
-  const registroPadre = (e) => {
+  const modificarPadre = (e) => {
     setPadre(e.target.value);
   };
-  const registroTelefonopadre = (e) => {
+  const modificarTelefonopadre = (e) => {
     setTelefonopadre(e.target.value);
   };
 
-  function enviarRegistro() {
-    fetch("/api/register", {
-      method: "POST",
+  function modificarAlumno() {
+    fetch("/api/change", {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: email,
-        password: password,
+        email: props.usuario.email,
         nombre: nombre,
         apellidos: apellidos,
         nacimiento: nacimiento,
@@ -83,31 +82,11 @@ function Registro(props) {
     <Container>
       <Form>
         <Form.Row>
-          <Form.Group as={Col} controlId="formBasicEmail">
-            <Form.Label>Correo electrónico</Form.Label>
-            <Form.Control
-              value={email}
-              onChange={registroEmail}
-              type="email"
-              placeholder=""
-            />
-          </Form.Group>
-          <Form.Group as={Col} controlId="formBasicPassword">
-            <Form.Label>Contraseña</Form.Label>
-            <Form.Control
-              value={password}
-              onChange={registroPassword}
-              type="password"
-              placeholder=""
-            />
-          </Form.Group>
-        </Form.Row>
-        <Form.Row>
           <Form.Group as={Col} controlId="formBasicNombre">
             <Form.Label>Nombre alumnx</Form.Label>
             <Form.Control
               value={nombre}
-              onChange={registroNombre}
+              onChange={modificarNombre}
               type="input"
               placeholder=""
             />
@@ -116,7 +95,7 @@ function Registro(props) {
             <Form.Label>Apellidos alumnx</Form.Label>
             <Form.Control
               value={apellidos}
-              onChange={registroApellidos}
+              onChange={modificarApellidos}
               type="input"
               placeholder=""
             />
@@ -127,13 +106,13 @@ function Registro(props) {
             <Form.Label>Fecha de nacimiento</Form.Label>
             <Form.Control
               value={nacimiento}
-              onChange={registroNacimiento}
+              onChange={modificarNacimiento}
               type="date"
             />
           </Form.Group>
           <Form.Group as={Col} controlId="formBasicCurso">
             <Form.Label>Curso</Form.Label>
-            <Form.Control as="select" onChange={registroCurso}>
+            <Form.Control as="select" onChange={modificarCurso}>
               <option disabled selected>
                 Selecciona curso actual
               </option>
@@ -159,7 +138,7 @@ function Registro(props) {
         <Form.Row>
           <Form.Group as={Col} controlId="formBasicIntolerancia">
             <Form.Label>¿Tienes alguna intolerancia alimentaria?</Form.Label>
-            <Form.Control as="select" onChange={registroIntolerancia}>
+            <Form.Control as="select" onChange={modificarIntolerancia}>
               <option disabled selected>
                 Selecciona si tienes alguna intolerancia
               </option>
@@ -174,7 +153,7 @@ function Registro(props) {
             <Form.Label>Nombre madre/padre 1</Form.Label>
             <Form.Control
               value={madre}
-              onChange={registroMadre}
+              onChange={modificarMadre}
               type="input"
               placeholder=""
             />
@@ -183,7 +162,7 @@ function Registro(props) {
             <Form.Label>Teléfono madre/padre 1</Form.Label>
             <Form.Control
               value={telefonomadre}
-              onChange={registroTelefonomadre}
+              onChange={modificarTelefonomadre}
               type="tel"
               placeholder=""
             />
@@ -194,7 +173,7 @@ function Registro(props) {
             <Form.Label>Nombre madre/padre 2</Form.Label>
             <Form.Control
               value={padre}
-              onChange={registroPadre}
+              onChange={modificarPadre}
               type="input"
               placeholder=""
             />
@@ -203,14 +182,14 @@ function Registro(props) {
             <Form.Label>Teléfono madre/padre 2</Form.Label>
             <Form.Control
               value={telefonopadre}
-              onChange={registroTelefonopadre}
+              onChange={modificarTelefonopadre}
               type="tel"
               placeholder=""
             />
           </Form.Group>
         </Form.Row>
         <Form.Group controlId="formBasicBoton">
-          <Button variant="primary" onClick={enviarRegistro}>
+          <Button variant="primary" onClick={modificarAlumno}>
             Enviar
           </Button>
         </Form.Group>
@@ -221,4 +200,4 @@ function Registro(props) {
   );
 }
 
-export default Registro;
+export default Modificar;

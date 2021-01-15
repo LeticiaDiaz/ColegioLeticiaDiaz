@@ -126,7 +126,6 @@ function Usuario(props) {
     }
   }
 
-
   if (isloading) {
     return <div>Loading</div>;
   } else {

@@ -104,7 +104,6 @@ app.get("/api", function (req, res) {
     telefonomadre: req.user.telefonomadre,
     padre: req.user.padre,
     telefonopadre: req.user.telefonopadre,
-    
   };
   if (req.isAuthenticated() === false) {
     return res
@@ -146,6 +145,31 @@ app.get("/api/user", function (req, res) {
   res.send({ nombre: "No logueado" });
 });
 
+app.put("/api/change"),
+  function (req, res) {
+    db.collection("alumnos").updateOne(
+      { email: req.body.email },
+      {
+        nombre: req.body.nombre,
+        apellidos: req.body.apellidos,
+        nacimiento: req.body.nacimiento,
+        curso: req.body.curso,
+        intolerancia: req.body.intolerancia,
+        madre: req.body.madre,
+        telefonomadre: req.body.telefonomadre,
+        padre: req.body.padre,
+        telefonopadre: req.body.telefonopadre,
+      },
+      function (err, datos) {
+        if (err !== null) {
+          res.send(err);
+        } else {
+          res.send({ mensaje: "Los datos del alumno han sido modificados" });
+        }
+      }
+    );
+  };
+
 app.put("/horarios", function (req, res) {
   db.collection("horarios")
     .find({ curso: req.body.curso })
@@ -163,7 +187,10 @@ app.put("/comedor", function (req, res) {
     .find({ intolerancia: req.body.intolerancia })
     .toArray(function (err, data) {
       if (data.length === 0) {
-        res.send({ error: true, mensaje: "No se ha encontrado ninguna intolerancia" });
+        res.send({
+          error: true,
+          mensaje: "No se ha encontrado ninguna intolerancia",
+        });
       } else {
         res.send({ error: false, data: data });
       }
