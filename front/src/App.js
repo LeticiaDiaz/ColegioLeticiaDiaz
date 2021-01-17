@@ -47,6 +47,18 @@ function App() {
         }
       });
   }
+function logout() {
+    fetch("/api/logout")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          console.log(data);
+        } else {
+          setUsuario({});
+          setSesion(false);
+        }
+      });
+  };
 
   return (
     <BrowserRouter>
@@ -61,7 +73,7 @@ function App() {
         <Modificar usuario={usuario} />
       </Route>
       <Route exact path="/usuario">
-        <Usuario usuario={usuario} />
+        <Usuario logout={logout} usuario={usuario} sesion={sesion}/>
       </Route>
     </BrowserRouter>
   );

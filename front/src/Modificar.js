@@ -52,13 +52,14 @@ function Modificar(props) {
   };
 
   function modificarAlumno() {
-    fetch("/api/change", {
+    console.log("llamando....")
+    fetch("http://localhost:3001/api/change", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: props.usuario.email,
+        email: props.usuario.usuario.email,
         nombre: nombre,
         apellidos: apellidos,
         nacimiento: nacimiento,
@@ -113,25 +114,22 @@ function Modificar(props) {
           <Form.Group as={Col} controlId="formBasicCurso">
             <Form.Label>Curso</Form.Label>
             <Form.Control as="select" onChange={modificarCurso}>
-              <option disabled selected>
-                Selecciona curso actual
-              </option>
-              <option value="InfantilCero">
+              <option value="InfantilCero" selected={props.usuario.usuario.curso === "InfantilCero"}>
                 Primer ciclo 0 a 3 años (Infantil)
               </option>
-              <option value="InfantilTres">3 años (Infantil)</option>
-              <option value="InfantilCuatro">4 años (Infantil)</option>
-              <option value="InfantilCinco">5 años (Infantil)</option>
-              <option value="PrimariaUno">1º (Primaria)</option>
-              <option value="PrimariaDos">2º (Primaria)</option>
-              <option value="PrimariaTres">3º (Primaria)</option>
-              <option value="PrimariaCuatro">4º (Primaria)</option>
-              <option value="PrimariaCinco">5º (Primaria)</option>
-              <option value="PrimariaSeis">6º (Primaria)</option>
-              <option value="EsoUno">1º (ESO)</option>
-              <option value="EsoDos">2º (ESO)</option>
-              <option value="EsoTres">3º (ESO)</option>
-              <option value="EsoCuatro">4º (ESO)</option>
+              <option value="InfantilTres" selected={props.usuario.usuario.curso === "InfantilTres"}>3 años (Infantil)</option>
+              <option value="InfantilCuatro" selected={props.usuario.usuario.curso === "InfantilCuatro"}>4 años (Infantil)</option>
+              <option value="InfantilCinco" selected={props.usuario.usuario.curso === "InfantilCinco"}>5 años (Infantil)</option>
+              <option value="PrimariaUno" selected={props.usuario.usuario.curso === "PrimariaUno"}>1º (Primaria)</option>
+              <option value="PrimariaDos" selected={props.usuario.usuario.curso === "PrimariaDos"}>2º (Primaria)</option>
+              <option value="PrimariaTres"selected={props.usuario.usuario.curso === "PrimariaTres"}>3º (Primaria)</option>
+              <option value="PrimariaCuatro" selected={props.usuario.usuario.curso === "PrimariaCuatro"}>4º (Primaria)</option>
+              <option value="PrimariaCinco" selected={props.usuario.usuario.curso === "PrimariaCinco"}>5º (Primaria)</option>
+              <option value="PrimariaSeis" selected={props.usuario.usuario.curso === "PrimariaSeis"}>6º (Primaria)</option>
+              <option value="EsoUno" selected={props.usuario.usuario.curso === "EsoUno"}>1º (ESO)</option>
+              <option value="EsoDos" selected={props.usuario.usuario.curso === "EsoDos"}>2º (ESO)</option>
+              <option value="EsoTres" selected={props.usuario.usuario.curso === "EsoTres"}>3º (ESO)</option>
+              <option value="EsoCuatro" selected={props.usuario.usuario.curso === "EsoCuatro"}>4º (ESO)</option>
             </Form.Control>
           </Form.Group>
         </Form.Row>
@@ -139,12 +137,9 @@ function Modificar(props) {
           <Form.Group as={Col} controlId="formBasicIntolerancia">
             <Form.Label>¿Tienes alguna intolerancia alimentaria?</Form.Label>
             <Form.Control as="select" onChange={modificarIntolerancia}>
-              <option disabled selected>
-                Selecciona si tienes alguna intolerancia
-              </option>
-              <option value="Gluten">Intolerante al gluten</option>
-              <option value="Lactosa">Intolerante a la lactosa</option>
-              <option value="Normal">Puedo comer de todo</option>
+              <option value="Gluten" selected={props.usuario.usuario.intolerancia === "Gluten"}>Intolerante al gluten</option>
+              <option value="Lactosa" selected={props.usuario.usuario.intolerancia === "Lactosa"}>Intolerante a la lactosa</option>
+              <option value="Normal" selected={props.usuario.usuario.intolerancia === "Normal"}>Puedo comer de todo</option>
             </Form.Control>
           </Form.Group>
         </Form.Row>

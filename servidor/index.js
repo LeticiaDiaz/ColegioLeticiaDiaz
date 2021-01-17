@@ -88,6 +88,13 @@ app.post(
   })
 );
 
+app.get('/api/logout', function (req, res){
+  req.session.destroy(function (err) {
+    res.send({ error: false, mensaje: "Logout correcto" });
+    res.redirect('/api/user');
+  });
+});
+
 app.get("/api/fail", function (req, res) {
   res.status(401).send({ error: true, mensaje: "Login Incorrecto" });
 });
@@ -145,11 +152,12 @@ app.get("/api/user", function (req, res) {
   res.send({ nombre: "No logueado" });
 });
 
-app.put("/api/change"),
+app.put("/api/change",
   function (req, res) {
+    console.log(req.body)
     db.collection("alumnos").updateOne(
       { email: req.body.email },
-      {
+      {$set:{
         nombre: req.body.nombre,
         apellidos: req.body.apellidos,
         nacimiento: req.body.nacimiento,
@@ -159,16 +167,16 @@ app.put("/api/change"),
         telefonomadre: req.body.telefonomadre,
         padre: req.body.padre,
         telefonopadre: req.body.telefonopadre,
-      },
+      },},
       function (err, datos) {
         if (err !== null) {
           res.send(err);
         } else {
-          res.send({ mensaje: "Los datos del alumno han sido modificados" });
+          res.send({ error: false, mensaje: "Los datos del alumno han sido modificados", data: datos });
         }
       }
     );
-  };
+  });
 
 app.put("/horarios", function (req, res) {
   db.collection("horarios")

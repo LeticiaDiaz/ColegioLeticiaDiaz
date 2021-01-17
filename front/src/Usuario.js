@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import { Table, ListGroup, Container } from "react-bootstrap";
+import { Redirect } from "react-router-dom"
+import { Table, ListGroup, Container, Button } from "react-bootstrap";
 import "./App.css";
 
 function Usuario(props) {
+  console.log(props.sesion)
   const [curso, setCurso] = useState([]);
   const [intolerancia, setIntolerancia] = useState([]);
   const [isloading, setIsloading] = useState(false);
@@ -126,126 +128,134 @@ function Usuario(props) {
     }
   }
 
-  if (isloading) {
-    return <div>Loading</div>;
+  if (!props.sesion) {
+    return <Redirect to="/" />;
   } else {
-    return (
-      <>
-        <Container>
-          <ListGroup>
-            <ListGroup.Item>
-              <strong>Nombre alumnx:</strong> {props.usuario.usuario.nombre}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <strong>Apellidos alumnx:</strong>{" "}
-              {props.usuario.usuario.apellidos}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <strong>Fecha de nacimiento:</strong>{" "}
-              {props.usuario.usuario.nacimiento}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <strong>Curso actual:</strong>{" "}
-              {nombreReal(props.usuario.usuario.curso)}
-            </ListGroup.Item>
-            {
+    if (isloading) {
+      return <div>Loading</div>;
+    } else {
+      return (
+        <>
+        
+          <Container>
+            <ListGroup>
               <ListGroup.Item>
-                <strong>Intolerancia alimentaria:</strong>{" "}
-                {intoleranciaReal(props.usuario.usuario.intolerancia)}
+                <strong>Nombre alumnx:</strong> {props.usuario.usuario.nombre}
               </ListGroup.Item>
-            }
-            <ListGroup.Item>
-              <strong>Nombre madre/padre 1:</strong>{" "}
-              {props.usuario.usuario.madre}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <strong>Teléfono madre/padre 1:</strong>{" "}
-              {props.usuario.usuario.telefonomadre}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <strong>Nombre madre/padre 2:</strong>{" "}
-              {props.usuario.usuario.padre}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <strong>Teléfono madre/padre 2:</strong>{" "}
-              {props.usuario.usuario.telefonopadre}
-            </ListGroup.Item>
-          </ListGroup>
-        </Container>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>HORARIO</th>
-              <th>Lunes</th>
-              <th>Martes</th>
-              <th>Miércoles</th>
-              <th>Jueves</th>
-              <th>Viernes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>08:00-09:00</td>
-              {primera}
-            </tr>
-            <tr>
-              <td>09:00-10:00</td>
-              {segunda}
-            </tr>
-            <tr>
-              <td>10:00-10:30</td>
-              {tercera}
-            </tr>
-            <tr>
-              <td>10:30-11:30</td>
-              {cuarta}
-            </tr>
-            <tr>
-              <td>11:30-12:30</td>
-              {quinta}
-            </tr>
-            <tr>
-              <td>12:30-13:30</td>
-              {sexta}
-            </tr>
-            <tr>
-              <td>13:30-14:30</td>
-              {septima}
-            </tr>
-            <tr>
-              <td>14:30-15:30</td>
-              {octava}
-            </tr>
-          </tbody>
-        </Table>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>MENU COMEDOR (Semana 05)</th>
-              <th>Lunes 01</th>
-              <th>Martes 02</th>
-              <th>Miércoles 03</th>
-              <th>Jueves 04</th>
-              <th>Viernes 05</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Primer Plato</td>
-              {primeros}
-            </tr>
-            <tr>
-              <td>Segundo Plato</td>
-              {segundos}
-            </tr>
-            <tr>
-              <td>Postre</td>
-              {postres}
-            </tr>
-          </tbody>
-        </Table>
-      </>
-    );
+              <ListGroup.Item>
+                <strong>Apellidos alumnx:</strong>{" "}
+                {props.usuario.usuario.apellidos}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <strong>Fecha de nacimiento:</strong>{" "}
+                {props.usuario.usuario.nacimiento}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <strong>Curso actual:</strong>{" "}
+                {nombreReal(props.usuario.usuario.curso)}
+              </ListGroup.Item>
+              {
+                <ListGroup.Item>
+                  <strong>Intolerancia alimentaria:</strong>{" "}
+                  {intoleranciaReal(props.usuario.usuario.intolerancia)}
+                </ListGroup.Item>
+              }
+              <ListGroup.Item>
+                <strong>Nombre madre/padre 1:</strong>{" "}
+                {props.usuario.usuario.madre}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <strong>Teléfono madre/padre 1:</strong>{" "}
+                {props.usuario.usuario.telefonomadre}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <strong>Nombre madre/padre 2:</strong>{" "}
+                {props.usuario.usuario.padre}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <strong>Teléfono madre/padre 2:</strong>{" "}
+                {props.usuario.usuario.telefonopadre}
+              </ListGroup.Item>
+            </ListGroup>
+          </Container>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>HORARIO</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>08:00-09:00</td>
+                {primera}
+              </tr>
+              <tr>
+                <td>09:00-10:00</td>
+                {segunda}
+              </tr>
+              <tr>
+                <td>10:00-10:30</td>
+                {tercera}
+              </tr>
+              <tr>
+                <td>10:30-11:30</td>
+                {cuarta}
+              </tr>
+              <tr>
+                <td>11:30-12:30</td>
+                {quinta}
+              </tr>
+              <tr>
+                <td>12:30-13:30</td>
+                {sexta}
+              </tr>
+              <tr>
+                <td>13:30-14:30</td>
+                {septima}
+              </tr>
+              <tr>
+                <td>14:30-15:30</td>
+                {octava}
+              </tr>
+            </tbody>
+          </Table>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>MENU COMEDOR (Semana 05)</th>
+                <th>Lunes 01</th>
+                <th>Martes 02</th>
+                <th>Miércoles 03</th>
+                <th>Jueves 04</th>
+                <th>Viernes 05</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Primer Plato</td>
+                {primeros}
+              </tr>
+              <tr>
+                <td>Segundo Plato</td>
+                {segundos}
+              </tr>
+              <tr>
+                <td>Postre</td>
+                {postres}
+              </tr>
+            </tbody>
+          </Table>
+          <Button variant="secondary" onClick={props.logout}>
+            Salir
+          </Button>{" "}
+        </>
+      );
+    }
   }
 }
 
