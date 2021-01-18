@@ -29,7 +29,7 @@ function Usuario(props) {
         setCurso(datos.data[0].horario);
         setIsloading(false);
       });
-  }, [props.usuario.usuario.curso]);
+  }, []);
 
   const primera = curso.map((horario) => {
     return <td>{horario.primera}</td>;
@@ -105,7 +105,7 @@ function Usuario(props) {
         setIntolerancia(datos.data[0].comedor);
         setIsloading(false);
       });
-  }, [props.usuario.usuario.intolerancia]);
+  }, []);
 
   const primeros = intolerancia.map((comedor) => {
     return <td>{comedor.primero}</td>;

@@ -1,4 +1,4 @@
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 import { useState } from "react";
 
 function Login(props) {
@@ -14,6 +14,7 @@ function Login(props) {
   };
 
   return (
+    <Container>
     <Form>
       <Form.Group controlId="formBasicEmail">
         <Form.Control
@@ -43,6 +44,7 @@ function Login(props) {
       </Button>
       {props.respuesta}
     </Form>
+    </Container>
   );
 }
 
