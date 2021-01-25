@@ -9,23 +9,41 @@ import {
   Col,
   Card,
 } from "react-bootstrap";
-/* import BigCalendar from 'react-big-calendar'
-import moment from 'moment' */
+import {Calendar, momentLocalizer} from 'react-big-calendar'
+import moment from 'moment'
 import "./App.css";
+
+const Agenda = (props)  => { 
+  const myEventsList = []
+
+  const localizer = Calendar.momentLocalizer(moment)
+  return(
+  <div>
+  <Calendar
+    localizer={localizer}
+    events={myEventsList}
+    startAccessor="start"
+    endAccessor="end"
+  />
+</div>
+)
+}
 
 function Usuario(props) {
   console.log(props.sesion);
   const [curso, setCurso] = useState([]);
   const [intolerancia, setIntolerancia] = useState([]);
   const [isloading, setIsloading] = useState(false);
-  /* const myEventsList = []
-
-  const localizer = BigCalendar.momentLocalizer(moment) */
+  const [usuario, setUsuario] = useState (props.usuario)
+ 
 
   console.log(props.usuario);
   /* ------------------------------------------------------------------------HORARIO------------------------------------------------------------------------------------------- */
   useEffect(() => {
     setIsloading(true);
+    fetch("/api/user").then((respuesta) => respuesta.json()).then((datos)=> {
+      setUsuario(datos)
+    })
     console.log("1");
     fetch("/horarios", {
       method: "PUT",
@@ -33,7 +51,7 @@ function Usuario(props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        curso: props.usuario.usuario.curso,
+        curso: usuario.usuario.curso,
       }),
     })
       .then((respuesta) => respuesta.json())
@@ -202,7 +220,7 @@ function Usuario(props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        intolerancia: props.usuario.usuario.intolerancia,
+        intolerancia: usuario.usuario.intolerancia,
       }),
     })
       .then((respuesta) => respuesta.json())
@@ -233,17 +251,8 @@ function Usuario(props) {
         return "Sin intolerancias ni alergias alimenticias";
     }
   }
-
-  /* const Agenda = props => (
-    <div>
-    <BigCalendar
-      localizer={localizer}
-      events={myEventsList}
-      startAccessor="start"
-      endAccessor="end"
-    />
-  </div>
-  ) */
+/* ------------------------------------------------------------------------CALENDARIO------------------------------------------------------------------------------------------- */
+  
   /* ------------------------------------------------------------------------RETURN------------------------------------------------------------------------------------------- */
   if (!props.sesion) {
     return <Redirect to="/" />;
@@ -259,11 +268,11 @@ function Usuario(props) {
                 <Row>
                   <Col>
                     <strong>Nombre alumno/a:</strong>{" "}
-                    {props.usuario.usuario.nombre}
+                    {usuario.usuario.nombre}
                   </Col>
                   <Col>
                     <strong>Apellidos alumno/a:</strong>{" "}
-                    {props.usuario.usuario.apellidos}
+                    {usuario.usuario.apellidos}
                   </Col>
                 </Row>
               </Card.Header>
@@ -274,19 +283,19 @@ function Usuario(props) {
                       <Col>
                         <strong>Fecha de nacimiento:</strong>
                         <br />
-                        {props.usuario.usuario.nacimiento}
+                        {usuario.usuario.nacimiento}
                       </Col>
                       <Col>
                         <strong>Curso actual:</strong>
                         <br />
-                        {nombreReal(props.usuario.usuario.curso)}
+                        {nombreReal(usuario.usuario.curso)}
                       </Col>
                     </Row>
                     <Row>
                       <Col>
                         <strong>Intolerancia alimentaria:</strong>
                         <br />
-                        {intoleranciaReal(props.usuario.usuario.intolerancia)}
+                        {intoleranciaReal(usuario.usuario.intolerancia)}
                       </Col>
                     </Row>
                   </Col>
@@ -294,21 +303,21 @@ function Usuario(props) {
                     <Row>
                       <Col>
                         <strong>Nombre madre/padre 1:</strong>{" "}
-                        {props.usuario.usuario.madre}
+                        {usuario.usuario.madre}
                       </Col>
                       <Col>
                         <strong>Teléfono madre/padre 1:</strong>{" "}
-                        {props.usuario.usuario.telefonomadre}
+                        {usuario.usuario.telefonomadre}
                       </Col>
                     </Row>
                     <Row>
                       <Col>
                         <strong>Nombre madre/padre 2:</strong>{" "}
-                        {props.usuario.usuario.padre}
+                        {usuario.usuario.padre}
                       </Col>
                       <Col>
                         <strong>Teléfono madre/padre 2:</strong>{" "}
-                        {props.usuario.usuario.telefonopadre}
+                        {usuario.usuario.telefonopadre}
                       </Col>
                     </Row>
                   </Col>
@@ -395,7 +404,7 @@ function Usuario(props) {
               </tbody>
             </Table>
           </Container>
-          {/* {Agenda} */}
+          {Agenda}
           <Button variant="secondary" onClick={props.logout}>
             Salir
           </Button>{" "}

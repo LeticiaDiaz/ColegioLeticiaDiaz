@@ -33,7 +33,7 @@ function Profesores(props) {
 
   return (
     <>
-      <p>HOla</p>
+      
       {mostrarProfesores}
     </>
   );

@@ -147,7 +147,7 @@ app.post("/api/register", function (req, res) {
 
 app.get("/api/user", function (req, res) {
   if (req.isAuthenticated()) {
-    return res.send({ nombre: req.user.name });
+    return res.send({ usuario: req.user });
   }
   res.send({ nombre: "No logueado" });
 });
