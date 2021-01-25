@@ -5,6 +5,8 @@ import Cabecera from "./Cabecera";
 import Login from "./Login";
 import Usuario from "./Usuario";
 import Modificar from "./Modificar";
+import Profesores from "./Profesores"
+import Landing from "./Landing"
 
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
@@ -63,6 +65,9 @@ function App() {
   return (
     <BrowserRouter>
       <Cabecera sesion={sesion} usuario={usuario} />
+      <Route exact path="/">
+        <Landing />
+      </Route>
       <Route exact path="/login">
         <Login enviarLogin={enviarLogin} respuesta={respuesta} />
       </Route>
@@ -74,6 +79,9 @@ function App() {
       </Route>
       <Route exact path="/usuario">
         <Usuario logout={logout} usuario={usuario} sesion={sesion} />
+      </Route>
+      <Route exact path="/profesores">
+        <Profesores />
       </Route>
     </BrowserRouter>
   );

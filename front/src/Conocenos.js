@@ -7,4 +7,4 @@ import "./App.css"
 
 
 
-export default Inicio 
+export default Conocenos 

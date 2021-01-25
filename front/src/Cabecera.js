@@ -9,14 +9,17 @@ function Cabecera(props) {
       <Navbar bg="dark" variant="dark">
         <Navbar.Brand href="/">Colegio Leticia Díaz</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/inicio">
-            Inicio
+          <Nav.Link as={Link} to="/conocenos">
+            Conócenos
           </Nav.Link>
           <Nav.Link as={Link} to="/contacto">
             Contacto
           </Nav.Link>
           <Nav.Link as={Link} to="/modificar">
             Modificar
+          </Nav.Link>
+          <Nav.Link as={Link} to="/profesores">
+            Profesores
           </Nav.Link>
         </Nav>
         <Link to="/usuario">Perfil usuario</Link>
@@ -27,9 +30,18 @@ function Cabecera(props) {
       <Navbar bg="dark" variant="dark">
         <Navbar.Brand href="/">Colegio Leticia Díaz</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/inicio">Inicio</Nav.Link>
-          <Nav.Link as={Link} to="/registro">Registro</Nav.Link>
-          <Nav.Link as={Link} to="/contacto">Contacto</Nav.Link>
+          <Nav.Link as={Link} to="/conocenos">
+            Conócenos
+          </Nav.Link>
+          <Nav.Link as={Link} to="/registro">
+            Registro
+          </Nav.Link>
+          <Nav.Link as={Link} to="/contacto">
+            Contacto
+          </Nav.Link>
+          <Nav.Link as={Link} to="/profesores">
+            Profesores
+          </Nav.Link>
         </Nav>
         <Link to="/login">Iniciar sesion</Link>
       </Navbar>

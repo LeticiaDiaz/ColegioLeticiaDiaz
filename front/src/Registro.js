@@ -104,7 +104,7 @@ function Registro(props) {
         </Form.Row>
         <Form.Row>
           <Form.Group as={Col} controlId="formBasicNombre">
-            <Form.Label>Nombre alumnx</Form.Label>
+            <Form.Label>Nombre alumno/a</Form.Label>
             <Form.Control
               value={nombre}
               onChange={registroNombre}
@@ -113,7 +113,7 @@ function Registro(props) {
             />
           </Form.Group>
           <Form.Group as={Col} controlId="formBasicApellido">
-            <Form.Label>Apellidos alumnx</Form.Label>
+            <Form.Label>Apellidos alumno/a</Form.Label>
             <Form.Control
               value={apellidos}
               onChange={registroApellidos}

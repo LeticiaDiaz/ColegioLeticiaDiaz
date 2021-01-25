@@ -205,4 +205,16 @@ app.put("/comedor", function (req, res) {
     });
 });
 
+app.get("/profesorado", function (req, res) {
+  db.collection("profesores")
+    .find()
+    .toArray(function (err, datos) {
+      if (err != null) {
+        res.send(err);
+      } else {
+        res.send(datos);
+      }
+    });
+});
+
 app.listen(3001);
