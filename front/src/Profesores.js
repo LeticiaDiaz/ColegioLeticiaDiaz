@@ -33,7 +33,6 @@ function Profesores(props) {
 
   return (
     <>
-      
       {mostrarProfesores}
     </>
   );
