@@ -7,6 +7,7 @@ import Usuario from "./Usuario";
 import Modificar from "./Modificar";
 import Profesores from "./Profesores"
 import Landing from "./Landing"
+import Conocenos from "./Conocenos"
 
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
@@ -82,6 +83,9 @@ function App() {
       </Route>
       <Route exact path="/profesores">
         <Profesores />
+      </Route>
+      <Route exact path="/conocenos">
+        <Conocenos />
       </Route>
     </BrowserRouter>
   );

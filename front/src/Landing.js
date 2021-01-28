@@ -1,9 +1,11 @@
-import { Container, Image, Col, Row } from "react-bootstrap";
+import { Container, Image, Col, Row, Carousel} from "react-bootstrap";
 
 import colegio from "./img/colegio.jpg"
+import hidrogel from "./img/hidrogel.jpg"
+import school from "./img/school.jpg"
 
-function Landing() {
-  return (
+
+/* <>
   <Container style={{marginTop:60}}>
       <Row>
       <Col>
@@ -21,7 +23,51 @@ function Landing() {
           </Col>
       </Row>
 </Container>
+
+      </> */
+
+function Landing() {
+  return (
+      <Container style={{marginTop: 40}}>
+      <Carousel>
+  <Carousel.Item interval={10000}>
+    <img
+      className="d-block w-100"
+      src={colegio}
+      alt="First slide"
+    />
+    <Carousel.Caption style= {{color: "black"}}>
+      <h2>Colegio Leticia Díaz</h2>
+      <h4>La educación marca nuestro espíritu</h4>
+    </Carousel.Caption>
+  </Carousel.Item>
+  <Carousel.Item interval={5000}>
+    <img
+      className="d-block w-100"
+      src={hidrogel}
+      alt="Third slide"
+    />
+    <Carousel.Caption style= {{color: "black", textShadow:"#ffffff"}}>
+      <h2>Estamos preparados de nuevo</h2>
+      <h4>Contamos con todas las medidas de seguridad, prevención e higiene</h4>
+    </Carousel.Caption>
+  </Carousel.Item>
+  <Carousel.Item interval={5000}>
+    <img
+      className="d-block w-100"
+      src={school}
+      alt="Third slide"
+    />
+    <Carousel.Caption style= {{color: "black"}}>
+      <h2>Bilingüe y Multicultural</h2>
+      <h4>Garantizamos la excelencia académica en ambos idiomas</h4>
+    </Carousel.Caption>
+  </Carousel.Item>
+</Carousel>
+</Container>
   )
+  
+ 
 }
 
 export default Landing;

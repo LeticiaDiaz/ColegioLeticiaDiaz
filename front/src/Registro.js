@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Button, Container, Alert, Col } from "react-bootstrap";
+import { Form, Button, Container, Alert, Col, Jumbotron } from "react-bootstrap";
 import "./App.css";
 
 function Registro(props) {
@@ -80,7 +80,13 @@ function Registro(props) {
       });
   }
   return (
-    <Container>
+    <Container style={{paddingTop: 20}}>
+      <Jumbotron>
+  <h1>Registro de Alumnos:</h1>
+  <p>
+    Rellena este formulario para crear tu cuenta en el Colegio Leticia Díaz y tener acceso a tu perfil.
+  </p>
+</Jumbotron>
       <Form>
         <Form.Row>
           <Form.Group as={Col} controlId="formBasicEmail">

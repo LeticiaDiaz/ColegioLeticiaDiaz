@@ -12,15 +12,31 @@ import {
 import {Calendar, momentLocalizer} from 'react-big-calendar'
 import moment from 'moment'
 import "./App.css";
+import "react-big-calendar/lib/css/react-big-calendar.css"
 
 const Agenda = (props)  => { 
-  const myEventsList = []
+  const myEventsList = [{
+    start: moment().toDate(),
+    end: moment()
+      .add(1, "days")
+      .toDate(),
+    title: "Some title"
+  },
+  {
+    title: "Reserva",
+    start: "2021-01-26T13:18:05",
+    end: "2021-01-26T17:18:05",
+    allDay: false
+  }]
 
-  const localizer = Calendar.momentLocalizer(moment)
+  const localizer = momentLocalizer(moment)
   return(
   <div>
   <Calendar
     localizer={localizer}
+    defaultDate={new Date()}
+    defaultView="month"
+    style={{ height: "100vh" }}
     events={myEventsList}
     startAccessor="start"
     endAccessor="end"
@@ -251,7 +267,6 @@ function Usuario(props) {
         return "Sin intolerancias ni alergias alimenticias";
     }
   }
-/* ------------------------------------------------------------------------CALENDARIO------------------------------------------------------------------------------------------- */
   
   /* ------------------------------------------------------------------------RETURN------------------------------------------------------------------------------------------- */
   if (!props.sesion) {
@@ -404,7 +419,9 @@ function Usuario(props) {
               </tbody>
             </Table>
           </Container>
-          {Agenda}
+          <Container>
+          <Agenda />
+          </Container>
           <Button variant="secondary" onClick={props.logout}>
             Salir
           </Button>{" "}

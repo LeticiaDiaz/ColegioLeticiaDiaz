@@ -91,7 +91,6 @@ app.post(
 app.get('/api/logout', function (req, res){
   req.session.destroy(function (err) {
     res.send({ error: false, mensaje: "Logout correcto" });
-    res.redirect('/api/user');
   });
 });
 
