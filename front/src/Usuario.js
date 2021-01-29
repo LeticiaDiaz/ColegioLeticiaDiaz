@@ -1,65 +1,96 @@
 import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import {
-  Table,
-  ListGroup,
-  Container,
-  Button,
-  Row,
-  Col,
-  Card,
-} from "react-bootstrap";
-import {Calendar, momentLocalizer} from 'react-big-calendar'
-import moment from 'moment'
+import { Table, Container, Button, Row, Col, Card } from "react-bootstrap";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
 import "./App.css";
-import "react-big-calendar/lib/css/react-big-calendar.css"
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
-const Agenda = (props)  => { 
-  const myEventsList = [{
-    start: moment().toDate(),
-    end: moment()
-      .add(1, "days")
-      .toDate(),
-    title: "Some title"
-  },
-  {
-    title: "Reserva",
-    start: "2021-01-26T13:18:05",
-    end: "2021-01-26T17:18:05",
-    allDay: false
-  }]
+/* ------------------------------------------------------------------------AGENDA------------------------------------------------------------------------------------------- */
 
-  const localizer = momentLocalizer(moment)
-  return(
-  <div>
-  <Calendar
-    localizer={localizer}
-    defaultDate={new Date()}
-    defaultView="month"
-    style={{ height: "100vh" }}
-    events={myEventsList}
-    startAccessor="start"
-    endAccessor="end"
-  />
-</div>
-)
-}
+const Agenda = (props) => {
+  const [myEventsList, setMyEventList] = useState([]);
+
+  useEffect(() => {
+    console.log("llamando...");
+    fetch("/agenda")
+      .then((response) => response.json())
+      .then((data) => {
+        if (!data.error) {
+          console.log(data.mensaje);
+          setMyEventList(data.agenda);
+        } else {
+          console.log(data.mensaje);
+        }
+      });
+  }, []);
+
+  const handleSelect = ({ start, end }) => {
+    const title = window.prompt("Asunto tutoría:");
+    if (title)
+      setMyEventList([
+        ...myEventsList,
+        {
+          start,
+          end,
+          title,
+        },
+      ]);
+    fetch("/agenda", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: title,
+        start: start,
+        end: end,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (!data.error) {
+          console.log(data.mensaje);
+        } else {
+          console.log(data.mensaje);
+        }
+      });
+  };
+
+  const localizer = momentLocalizer(moment);
+  return (
+    <div>
+      <Calendar
+        localizer={localizer}
+        defaultDate={new Date()}
+        defaultView="month"
+        style={{ height: "100vh" }}
+        events={myEventsList}
+        startAccessor="start"
+        endAccessor="end"
+        onSelectSlot={handleSelect}
+        onSelectEvent={(event) => alert(event.title)}
+        selectable
+      />
+    </div>
+  );
+};
 
 function Usuario(props) {
-  console.log(props.sesion);
   const [curso, setCurso] = useState([]);
   const [intolerancia, setIntolerancia] = useState([]);
   const [isloading, setIsloading] = useState(false);
-  const [usuario, setUsuario] = useState (props.usuario)
- 
+  const [usuario, setUsuario] = useState(props.usuario);
 
-  console.log(props.usuario);
   /* ------------------------------------------------------------------------HORARIO------------------------------------------------------------------------------------------- */
+
   useEffect(() => {
     setIsloading(true);
-    fetch("/api/user").then((respuesta) => respuesta.json()).then((datos)=> {
-      setUsuario(datos)
-    })
+    fetch("/api/user")
+      .then((respuesta) => respuesta.json())
+      .then((datos) => {
+        setUsuario(datos);
+      });
     console.log("1");
     fetch("/horarios", {
       method: "PUT",
@@ -227,6 +258,7 @@ function Usuario(props) {
     }
   }
   /* ------------------------------------------------------------------------COMEDOR------------------------------------------------------------------------------------------- */
+
   useEffect(() => {
     console.log(props.usuario.usuario);
     setIsloading(true);
@@ -267,8 +299,9 @@ function Usuario(props) {
         return "Sin intolerancias ni alergias alimenticias";
     }
   }
-  
+
   /* ------------------------------------------------------------------------RETURN------------------------------------------------------------------------------------------- */
+
   if (!props.sesion) {
     return <Redirect to="/" />;
   } else {
@@ -282,8 +315,7 @@ function Usuario(props) {
               <Card.Header>
                 <Row>
                   <Col>
-                    <strong>Nombre alumno/a:</strong>{" "}
-                    {usuario.usuario.nombre}
+                    <strong>Nombre alumno/a:</strong> {usuario.usuario.nombre}
                   </Col>
                   <Col>
                     <strong>Apellidos alumno/a:</strong>{" "}
@@ -420,7 +452,7 @@ function Usuario(props) {
             </Table>
           </Container>
           <Container>
-          <Agenda />
+            <Agenda />
           </Container>
           <Button variant="secondary" onClick={props.logout}>
             Salir

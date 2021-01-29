@@ -29,6 +29,8 @@ MongoClient.connect(
 
 const session = require("express-session");
 
+/* ------------------------------------------------------------------------LOGIN------------------------------------------------------------------------------------------- */
+
 app.use(
   session({
     secret: "secret",
@@ -88,7 +90,7 @@ app.post(
   })
 );
 
-app.get('/api/logout', function (req, res){
+app.get("/api/logout", function (req, res) {
   req.session.destroy(function (err) {
     res.send({ error: false, mensaje: "Logout correcto" });
   });
@@ -118,6 +120,8 @@ app.get("/api", function (req, res) {
   }
   res.send({ error: false, mensaje: "Login Correcto", usuario: usuario });
 });
+
+/* ------------------------------------------------------------------------REGISTRO------------------------------------------------------------------------------------------- */
 
 app.post("/api/register", function (req, res) {
   db.collection("alumnos").insertOne(
@@ -151,12 +155,12 @@ app.get("/api/user", function (req, res) {
   res.send({ nombre: "No logueado" });
 });
 
-app.put("/api/change",
-  function (req, res) {
-    console.log(req.body)
-    db.collection("alumnos").updateOne(
-      { email: req.body.email },
-      {$set:{
+app.put("/api/change", function (req, res) {
+  console.log(req.body);
+  db.collection("alumnos").updateOne(
+    { email: req.body.email },
+    {
+      $set: {
         nombre: req.body.nombre,
         apellidos: req.body.apellidos,
         nacimiento: req.body.nacimiento,
@@ -166,16 +170,23 @@ app.put("/api/change",
         telefonomadre: req.body.telefonomadre,
         padre: req.body.padre,
         telefonopadre: req.body.telefonopadre,
-      },},
-      function (err, datos) {
-        if (err !== null) {
-          res.send(err);
-        } else {
-          res.send({ error: false, mensaje: "Los datos del alumno han sido modificados", data: datos });
-        }
+      },
+    },
+    function (err, datos) {
+      if (err !== null) {
+        res.send(err);
+      } else {
+        res.send({
+          error: false,
+          mensaje: "Los datos del alumno han sido modificados",
+          data: datos,
+        });
       }
-    );
-  });
+    }
+  );
+});
+
+/* ------------------------------------------------------------------------HORARIOS------------------------------------------------------------------------------------------- */
 
 app.put("/horarios", function (req, res) {
   db.collection("horarios")
@@ -188,6 +199,8 @@ app.put("/horarios", function (req, res) {
       }
     });
 });
+
+/* ------------------------------------------------------------------------COMEDOR------------------------------------------------------------------------------------------- */
 
 app.put("/comedor", function (req, res) {
   db.collection("intolerancia")
@@ -204,6 +217,8 @@ app.put("/comedor", function (req, res) {
     });
 });
 
+/* ------------------------------------------------------------------------PROFESORES------------------------------------------------------------------------------------------- */
+
 app.get("/profesorado", function (req, res) {
   db.collection("profesores")
     .find()
@@ -215,5 +230,41 @@ app.get("/profesorado", function (req, res) {
       }
     });
 });
+
+/* ------------------------------------------------------------------------AGENDA------------------------------------------------------------------------------------------- */
+
+app.get("/agenda", function (req, res) {
+  db.collection("agenda")
+    .find()
+    .toArray(function (err, datos) {
+      if (err !== null) {
+        res.send({ error: true, mensaje: "Ha habido un error. " + err });
+      } else {
+        console.log(datos);
+        res.send({ error: false, mensaje: "correcto", agenda: datos });
+      }
+    });
+});
+
+app.post(
+  "/agenda",
+  function (req, res) {
+    db.collection("agenda").insertOne({
+      title: req.body.title,
+      start: req.body.start,
+      end: req.body.end,
+    });
+  },
+  function (err, datos) {
+    if (err !== null) {
+      res.send({ error: true, mensaje: "Ha habido un error. " + err });
+    } else {
+      res.send({
+        error: false,
+        mensaje: "correcto",
+      });
+    }
+  }
+);
 
 app.listen(3001);
