@@ -1,4 +1,3 @@
-/* import { useState, useEffect } from "react" */
 import "./App.css";
 import { Container, Image, Col, Row } from "react-bootstrap";
 import manos from "./img/manos.webp";

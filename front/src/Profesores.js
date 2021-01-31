@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import {Container, Row, Col} from "react-bootstrap"
 
 function Profesores(props) {
   const [data, setData] = useState([]);
@@ -16,6 +17,9 @@ function Profesores(props) {
 
   const mostrarProfesores = data.map((profesor) => {
     return (
+      <Container>
+        <Row>
+          <Col md={6}>
         <div class="flip-card">
         <div class="flip-card-inner">
           <div class="flip-card-front">
@@ -28,6 +32,9 @@ function Profesores(props) {
           </div>
         </div>
       </div>
+      </Col>
+      </Row>
+      </Container>
     )
   });
 

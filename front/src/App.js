@@ -8,6 +8,7 @@ import Modificar from "./Modificar";
 import Profesores from "./Profesores"
 import Landing from "./Landing"
 import Conocenos from "./Conocenos"
+import Contacto from "./Contacto"
 
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
@@ -86,6 +87,9 @@ function App() {
       </Route>
       <Route exact path="/conocenos">
         <Conocenos />
+      </Route>
+      <Route exact path="/contacto">
+        <Contacto />
       </Route>
     </BrowserRouter>
   );

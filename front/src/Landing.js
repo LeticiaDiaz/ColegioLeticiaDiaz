@@ -37,7 +37,7 @@ function Landing() {
       alt="First slide"
     />
     <Carousel.Caption style= {{color: "black"}}>
-      <h2>Colegio Leticia Díaz</h2>
+      <h2><strong>Colegio Leticia Díaz</strong></h2>
       <h4>La educación marca nuestro espíritu</h4>
     </Carousel.Caption>
   </Carousel.Item>
@@ -48,7 +48,7 @@ function Landing() {
       alt="Third slide"
     />
     <Carousel.Caption style= {{color: "black", textShadow:"#ffffff"}}>
-      <h2>Estamos preparados de nuevo</h2>
+      <h2><strong>Estamos preparados de nuevo</strong></h2>
       <h4>Contamos con todas las medidas de seguridad, prevención e higiene</h4>
     </Carousel.Caption>
   </Carousel.Item>
@@ -59,7 +59,7 @@ function Landing() {
       alt="Third slide"
     />
     <Carousel.Caption style= {{color: "black"}}>
-      <h2>Bilingüe y Multicultural</h2>
+      <h2><strong>Bilingüe y Multicultural</strong></h2>
       <h4>Garantizamos la excelencia académica en ambos idiomas</h4>
     </Carousel.Caption>
   </Carousel.Item>
