@@ -1,67 +1,90 @@
-import { Container, Row, Col, Image, Form } from "react-bootstrap";
+import { Container, Alert, Row, Col, Image, Form, Button } from "react-bootstrap";
+import {useState} from "react"
 import "./App.css";
 import mapa from "./img/mapa.png";
 
 function Contacto() {
+
+const [feedback, setFeedback]=useState("")
+
+
+
+
   return (
     <div>
       <section className="tarjeta uno">
+        <Container style={{ marginTop: 20 }}>
+          <Row>
+            <Col sm={3}>
+              <Row>
+                <p>
+                  <strong>Dirección: </strong>
+                  <br />
+                  Calle Azulon, 28232 Las Rozas (Madrid)
+                </p>
+              </Row>
+              <Row>
+                <p style={{ textAlign: "justify" }}>
+                  <strong>Teléfono: </strong>
+                  <br />
+                  916235689
+                </p>
+              </Row>
+              <Row>
+                <p>
+                  <strong>E-mail: </strong>
+                  <br />
+                  colegio@leticiadiaz.com
+                </p>
+              </Row>
+              <Row>
+                <p>
+                  <strong>Horario secretaría: </strong>
+                  <br />
+                  De 8:30h a 17:30h (ininterrumpido)
+                </p>
+              </Row>
+            </Col>
+            <Col sm={9} className="d-flex justify-content-center">
+              <Image
+                style={{ width: "100%" }}
+                src={mapa}
+                alt="famu-4814068-960-720"
+              />
+            </Col>
+          </Row>
+        </Container>
         <Container>
-          <Row
-            style={{ margin: 20 }}
-            className="d-flex justify-contcenterent-between"
-          >
-            <Col md={7}>
-              <p>
-                <strong>Dirección: </strong>Calle Azulon, 28232 Las Rozas
-                (Madrid)
-              </p>
+          <Form>
+            <Form.Row>
+              <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control required type="email" />
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group as={Col} controlId="formGridAddress1">
+                <Form.Label>Asunto</Form.Label>
+                <Form.Control/>
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group as={Col}>
+              <Form.Label>Escribe tu mensaje:</Form.Label>
+              <Form.Control as="textarea" rows={4} />
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Col sm={1}>
+            <Button size="lg" variant="primary" onClick={()=>{setFeedback(<Alert variant="success">Tu mensaje ha sido enviado</Alert>); setTimeout(()=>{setFeedback("")}, 8000)}} type="submit">
+              Enviar
+            </Button>
             </Col>
-          </Row>
-          <Row
-            style={{ margin: 20 }}
-            className="d-flex justify-contcenterent-between"
-          >
-            <Col md={7}>
-              <p style={{ textAlign: "justify" }}>
-                <strong>Teléfono: </strong>916235689
-              </p>
+            <Col sm={11}>
+            {feedback}
             </Col>
-          </Row>
-          <Row
-            style={{ margin: 20 }}
-            className="d-flex justify-contcenterent-between"
-          >
-            <Col md={7}>
-              <p style={{ textAlign: "justify" }}>
-                <strong>E-mail: </strong>colegio@leticiadiaz.com
-              </p>
-            </Col>
-          </Row>
-          <Row
-            style={{ margin: 20 }}
-            className="d-flex justify-contcenterent-between"
-          >
-            <Col md={7}>
-              <p style={{ textAlign: "justify" }}>
-                <strong>Horario secretaría: </strong>De 8:30h a 17:30h
-                (ininterrumpido)
-              </p>
-            </Col>
-          </Row>
-          <Col className="d-flex justify-content-center" md={5}>
-            <Image
-              style={{ width: "100%" }}
-              src={mapa}
-              alt="famu-4814068-960-720"
-            />
-          </Col>
-      {/*     <Form.Row>
-     {/*      <Form.Group as={Col} controlId="exampleForm.ControlInput1">
-    <Form.Label>Déjanos tu teléfono y te llamamos</Form.Label>
-    <Form.Control as={Col} type="text" placeholder=""  />
-  </Form.Group>
-  </Form.Row> */} 
+            </Form.Row>
+          </Form>
         </Container>
       </section>
     </div>

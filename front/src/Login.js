@@ -1,4 +1,4 @@
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useState } from "react";
 
 function Login(props) {
@@ -14,7 +14,8 @@ function Login(props) {
   };
 
   return (
-    <Container>
+    <Container className="d-flex justify-content-center" style={{paddingTop: 20}}>
+      
     <Form>
       <Form.Group controlId="formBasicEmail">
         <Form.Control
