@@ -1,5 +1,7 @@
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
 import { useState } from "react";
+import logo from "./img/isotipo.svg"
+import logo2 from "./img/logotipo.svg"
 
 function Login(props) {
   const [email, setEmail] = useState("");
@@ -13,40 +15,62 @@ function Login(props) {
     setPassword(e.target.value);
   };
 
-  return (
-    <Container className="d-flex justify-content-center" style={{paddingTop: 20}}>
-      
-    <Form>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Control
-          type="email"
-          placeholder="Introduce tu email"
-          value={email}
-          onChange={registroEmail}
-        />
-      </Form.Group>
-
-      <Form.Group controlId="formBasicPassword">
-        <Form.Control
-          type="password"
-          placeholder="Introduce tu contraseña"
-          value={password}
-          onChange={registroPassword}
-        />
-      </Form.Group>
-
-      <Button
-        variant="primary"
-        onClick={() => {
-          props.enviarLogin(email, password);
-        }}
+    return (
+      <>
+      <Container style={{ marginTop: "10%", marginBottom:20 }} className="d-flex flex-column justify-content-center">
+        <Image style={{width:200}} src={logo}/>
+        <Image style={{height: 50}} src={logo2}/>
+      </Container>
+      <Container
+        className="d-flex justify-content-center"
       >
-        Enviar
-      </Button>
-      {props.respuesta}
-    </Form>
-    </Container>
-  );
-}
+        <Col sm={6}>
+          <Form>
+            <Form.Group as={Row} controlId="formPlaintextEmail">
+              <Form.Label column sm="2">
+                Email
+              </Form.Label>
+              <Col sm="10">
+                <Form.Control
+                  value={email}
+                  onChange={registroEmail}
+                  type="input"
+                />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="formPlaintextPassword">
+              <Form.Label column sm="2">
+                Password
+              </Form.Label>
+              <Col sm="10">
+                <Form.Control
+                  value={password}
+                  onChange={registroPassword}
+                  type="password"
+                />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row} controlId="formButtonSend">
+              <Form.Label column sm="2"></Form.Label>
+              <Col sm={10}>
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    props.enviarLogin(email, password);
+                  }}
+                >
+                  Enviar
+                </Button>
+              </Col>
+            </Form.Group>
+            {props.respuesta}
+          </Form>
+        </Col>
+      </Container>
+      </>
+    );
+  }
+
 
 export default Login;

@@ -58,6 +58,17 @@ const Agenda = (props) => {
   };
 
   const localizer = momentLocalizer(moment);
+  const culture ="es-ES"
+  let formats = {
+    dateFormat: 'dd',
+  
+    dayFormat: (date, localizer) =>
+      localizer.format(date, 'DDD', culture),
+  
+    dayRangeHeaderFormat: ({ start, end }, culture, localizer) =>
+      localizer.format(start, { date: 'short' }, culture) + ' — ' +
+      localizer.format(end, { date: 'short' }, culture)
+  }
   return (
     <div>
       <Calendar
@@ -71,6 +82,12 @@ const Agenda = (props) => {
         onSelectSlot={handleSelect}
         onSelectEvent={(event) => alert(event.title)}
         selectable
+        views={{
+          month: true,
+          day: true, 
+        }}
+        popup
+        formats={formats}
       />
     </div>
   );
@@ -454,9 +471,6 @@ function Usuario(props) {
           <Container>
             <Agenda />
           </Container>
-          <Button variant="secondary" onClick={props.logout}>
-            Salir
-          </Button>{" "}
         </>
       );
     }

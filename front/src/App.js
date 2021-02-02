@@ -66,12 +66,12 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Cabecera sesion={sesion} usuario={usuario} />
+      <Cabecera sesion={sesion} usuario={usuario} logout={logout}/>
       <Route exact path="/">
         <Landing />
       </Route>
       <Route exact path="/login">
-        <Login enviarLogin={enviarLogin} respuesta={respuesta} />
+        <Login sesion={sesion} enviarLogin={enviarLogin} respuesta={respuesta} />
       </Route>
       <Route exact path="/registro">
         <Registro />
