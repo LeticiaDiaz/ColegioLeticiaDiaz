@@ -1,4 +1,5 @@
 import { Container, Image, Col, Row, Carousel} from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import colegio from "./img/colegio.jpg"
 import hidrogel from "./img/hidrogel.jpg"
@@ -66,13 +67,14 @@ function Landing() {
   </Carousel.Item>
 </Carousel>
 </Row>
-<Row style={{marginTop:20}}className="d-flex justify-content-center">
-  <h1>UYGUYGUYEGuyguygultg uty</h1>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id feugiat erat, eu pellentesque dui. Cras vehicula aliquam pulvinar. Etiam fermentum ac est a dapibus. Nulla lectus magna, laoreet bibendum eros quis, cursus molestie ipsum. Vestibulum rutrum sollicitudin ante eget dapibus. Phasellus rutrum viverra nunc nec vehicula. Proin quis sagittis est, ac facilisis lorem. Mauris ut sapien vel leo rutrum ornare ut vel nunc. Donec molestie purus eget luctus blandit.</p>
+<Row style={{marginTop:20}}className="d-flex justify-content-center text-center">
+  <h1><strong>Preparados para la vuelta</strong></h1>
+  <h5>Garantizamos* las clases presenciales de todos nuestros alumnos, siguiendo un riguroso protocolo de salud y seguridad que puedes consultar <Link href="#">aquí</Link>.</h5>
 
-<p>Proin vitae blandit tellus. Nulla sit amet fermentum mauris. Nulla tellus eros, suscipit in tortor nec, finibus faucibus est. Nulla gravida malesuada euismod. Nullam lobortis mattis dolor eu faucibus. Mauris dignissim metus congue viverra mattis. Morbi congue a purus non ultrices. Aenean commodo odio ut libero blandit, sed ornare eros aliquet. Pellentesque pretium ligula sagittis lacus faucibus ultricies.</p>
+<small>* Siempre y cuando la situación de la crisis sanitaria producida por la COVID-19 lo permita, el Colegio Leticia Díaz permanecerá abierto y con normalidad en sus clases presenciales. </small>
 
-<p>Quisque molestie sapien in orci vulputate euismod. Nullam odio dui, interdum sed erat eu, semper mollis massa. Sed facilisis ut tortor ac venenatis. Morbi sit amet laoreet nulla. Aenean nec porttitor nunc. Quisque et sapien et leo fermentum feugiat. Integer at ultricies augue. Aenean eleifend consectetur nisl pulvinar commodo. Proin malesuada cursus ex quis dictum. Suspendisse elementum sapien at nisl accumsan, pharetra pellentesque diam auctor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed volutpat porttitor urna nec dictum. Sed quam leo, pulvinar sit amet mollis in, scelerisque in erat.</p>
+
+
 </Row>
 </Container>
   )

@@ -11,7 +11,7 @@ const [feedback, setFeedback]=useState("")
 
 
   return (
-    <div>
+    <div style={{marginBottom: 20}}>
       <section className="tarjeta uno">
         <Container style={{ marginTop: 20 }}>
           <Row>

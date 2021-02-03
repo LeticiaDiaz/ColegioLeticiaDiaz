@@ -25,7 +25,7 @@ function Login(props) {
         <Image style={{height: 50}} src={logo}/>
         </Row>
       </Container>
-      <Container
+      <Container style={{marginBottom: "15%"}}
         className="d-flex justify-content-center"
       >
         <Col sm={6}>

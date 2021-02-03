@@ -5,7 +5,6 @@ import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import "./App.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import * as dates from "./Date"
 
 
 /* ------------------------------------------------------------------------AGENDA------------------------------------------------------------------------------------------- */
@@ -59,7 +58,6 @@ const Agenda = (props) => {
       });
   };
   const ColoredDateCellWrapper = ({ children }) =>    React.cloneElement(React.Children.only(children), {    style: {    backgroundColor: "lightblue",    },     })
-  let allViews = Object.keys(Views).map(k => Views[k])
   const localizer = momentLocalizer(moment);
   const culture ="es-ES"
   let formats = {
@@ -76,22 +74,22 @@ const Agenda = (props) => {
   return (
     <div>
       <Calendar
-      max={dates.add(dates.endOf(new Date(2015, 17, 1), "day"), -1, "hours")}    defaultDate={new Date(2015, 3, 1)}    components={{    timeSlotWrapper: ColoredDateCellWrapper,       }}
         localizer={localizer}
-        showMultiDayTimes
         defaultDate={new Date()}
         defaultView="month"
-        style={{ height: "100vh" }}
+        style={{ height: "60vh" }}
         events={myEventsList}
         startAccessor="start"
         endAccessor="end"
         onSelectSlot={handleSelect}
         onSelectEvent={(event) => alert(event.title)}
         selectable
-        views={allViews}
-        step={60}
+        views={{
+          month : true,
+          day : true,
+          agenda : true,
+        }}
         popup
-        formats={formats}
         components={{
           timeSlotWrapper: ColoredDateCellWrapper,
         }}
@@ -491,8 +489,16 @@ function Usuario(props) {
             </Row>
           </Container>
           <hr style={{ marginInline: 200 }} />
-          <Container>
-            <Agenda />
+          <Container style={{marginBottom: 20}}>
+            <Row>
+              <Col sm={2}>
+                <h1>Tutoría:</h1>
+              </Col>
+              <Col>
+              <Agenda />
+              </Col>
+            </Row>
+            
           </Container>
         </>
       );
