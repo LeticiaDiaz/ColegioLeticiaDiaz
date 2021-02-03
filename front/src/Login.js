@@ -1,7 +1,7 @@
 import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
 import { useState } from "react";
-import logo from "./img/isotipo.svg"
-import logo2 from "./img/logotipo.svg"
+import logo from "./img/isotipoINV.svg"
+import logo2 from "./img/logotipoINV.svg"
 
 function Login(props) {
   const [email, setEmail] = useState("");
@@ -17,9 +17,13 @@ function Login(props) {
 
     return (
       <>
-      <Container style={{ marginTop: "10%", marginBottom:20 }} className="d-flex flex-column justify-content-center">
-        <Image style={{width:200}} src={logo}/>
-        <Image style={{height: 50}} src={logo2}/>
+      <Container style={{ marginTop: "10%", marginBottom:20 }}>
+        <Row className="d-flex flex-column justify-content-center">
+        <Image style={{marginBottom:20, height: 100}}src={logo2}/>
+        </Row>
+        <Row className="d-flex flex-column justify-content-center">
+        <Image style={{height: 50}} src={logo}/>
+        </Row>
       </Container>
       <Container
         className="d-flex justify-content-center"

@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { Table, Container, Button, Row, Col, Card } from "react-bootstrap";
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import "./App.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import * as dates from "./Date"
+
 
 /* ------------------------------------------------------------------------AGENDA------------------------------------------------------------------------------------------- */
 
@@ -56,23 +58,27 @@ const Agenda = (props) => {
         }
       });
   };
-
+  const ColoredDateCellWrapper = ({ children }) =>    React.cloneElement(React.Children.only(children), {    style: {    backgroundColor: "lightblue",    },     })
+  let allViews = Object.keys(Views).map(k => Views[k])
   const localizer = momentLocalizer(moment);
   const culture ="es-ES"
   let formats = {
     dateFormat: 'dd',
   
     dayFormat: (date, localizer) =>
-      localizer.format(date, 'DDD', culture),
+      localizer.format(date, 'dd', culture),
   
     dayRangeHeaderFormat: ({ start, end }, culture, localizer) =>
       localizer.format(start, { date: 'short' }, culture) + ' — ' +
       localizer.format(end, { date: 'short' }, culture)
+
   }
   return (
     <div>
       <Calendar
+      max={dates.add(dates.endOf(new Date(2015, 17, 1), "day"), -1, "hours")}    defaultDate={new Date(2015, 3, 1)}    components={{    timeSlotWrapper: ColoredDateCellWrapper,       }}
         localizer={localizer}
+        showMultiDayTimes
         defaultDate={new Date()}
         defaultView="month"
         style={{ height: "100vh" }}
@@ -82,12 +88,13 @@ const Agenda = (props) => {
         onSelectSlot={handleSelect}
         onSelectEvent={(event) => alert(event.title)}
         selectable
-        views={{
-          month: true,
-          day: true, 
-        }}
+        views={allViews}
+        step={60}
         popup
         formats={formats}
+        components={{
+          timeSlotWrapper: ColoredDateCellWrapper,
+        }}
       />
     </div>
   );
@@ -389,11 +396,17 @@ function Usuario(props) {
               </Card.Body>
             </Card>
           </Container>
+          <hr style={{ marginInline: 200 }} />
           <Container style={{ marginTop: 20 }}>
+          <Row>
+            <Col sm={2}>
+            <h1>Horario: </h1>
+            </Col>
+            <Col>
             <Table striped bordered hover>
               <thead style={{ backgroundColor: "black", color: "white" }}>
                 <tr>
-                  <th>HORARIO</th>
+                  <th></th>
                   <th>Lunes</th>
                   <th>Martes</th>
                   <th>Miércoles</th>
@@ -436,13 +449,20 @@ function Usuario(props) {
                 </tr>
               </tbody>
             </Table>
+            </Col>
+            </Row>
           </Container>
+          <hr style={{ marginInline: 200 }} />
           <Container>
+            <Row>
+              <Col sm={2}>
+              <h1>Menú: </h1>
+              </Col>
+              <Col>
             <Table striped bordered hover>
               <thead style={{ backgroundColor: "black", color: "white" }}>
                 <tr>
                   <th>
-                    MENU COMEDOR <br />
                     Semana 05
                   </th>
                   <th>Lunes 01</th>
@@ -467,7 +487,10 @@ function Usuario(props) {
                 </tr>
               </tbody>
             </Table>
+            </Col>
+            </Row>
           </Container>
+          <hr style={{ marginInline: 200 }} />
           <Container>
             <Agenda />
           </Container>

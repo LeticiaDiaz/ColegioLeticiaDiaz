@@ -9,6 +9,7 @@ import Profesores from "./Profesores"
 import Landing from "./Landing"
 import Conocenos from "./Conocenos"
 import Contacto from "./Contacto"
+import Footer from "./Footer"
 
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
@@ -91,6 +92,7 @@ function App() {
       <Route exact path="/contacto">
         <Contacto />
       </Route>
+      <Footer />
     </BrowserRouter>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Button, Container, Alert, Col } from "react-bootstrap";
+import { Form, Button, Container, Alert, Col, Jumbotron } from "react-bootstrap";
 import "./App.css";
 
 function Modificar(props) {
@@ -80,7 +80,13 @@ function Modificar(props) {
       });
   }
   return (
-    <Container>
+    <Container style={{paddingTop: 20}}>
+      <Jumbotron>
+  <h1>Modificación de datos:</h1>
+  <p>
+    Modifica tus datos personales en este formulario y pulsa el botón guardar. 
+  </p>
+</Jumbotron>
       <Form>
         <Form.Row>
           <Form.Group as={Col} controlId="formBasicNombre">
@@ -185,7 +191,7 @@ function Modificar(props) {
         </Form.Row>
         <Form.Group controlId="formBasicBoton">
           <Button variant="primary" onClick={modificarAlumno}>
-            Enviar
+            Guardar
           </Button>
         </Form.Group>
 

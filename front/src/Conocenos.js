@@ -9,7 +9,6 @@ function Conocenos() {
   return (
     <div>
       <section
-        style={{ borderBottom: "1px solid #dddddd" }}
         className="tarjeta uno"
       >
         <Container>
@@ -46,8 +45,8 @@ function Conocenos() {
           </Row>
         </Container>
       </section>
+      <hr style={{ marginInline: 200 }} />
       <section
-        style={{ borderBottom: "1px solid #dddddd", margin: 20 }}
         className="tarjeta dos"
       >
         <Container>
@@ -79,8 +78,8 @@ function Conocenos() {
           </Row>
         </Container>
       </section>
+      <hr style={{ marginInline: 200 }} />
       <section
-        style={{ borderBottom: "1px solid #dddddd", margin: 20 }}
         className="tarjeta tres"
       >
         <Container>
@@ -116,8 +115,8 @@ function Conocenos() {
           </Row>
         </Container>
       </section>
+      <hr style={{ marginInline: 200 }} />
       <section
-        style={{ borderBottom: "1px solid #dddddd" }}
         className="tarjeta cuatro"
       >
         <Container>
