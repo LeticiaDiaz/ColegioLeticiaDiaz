@@ -103,32 +103,55 @@ function Usuario(props) {
   const [intolerancia, setIntolerancia] = useState([]);
   const [isloading, setIsloading] = useState(false);
   const [usuario, setUsuario] = useState(props.usuario);
-
+const [alergia, setAlergia] = useState("Normal")
   /* ------------------------------------------------------------------------HORARIO------------------------------------------------------------------------------------------- */
 
   useEffect(() => {
+    console.log("hola")
     setIsloading(true);
     fetch("/api/user")
       .then((respuesta) => respuesta.json())
       .then((datos) => {
+        fetch("/horarios", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            curso: datos.usuario.curso,
+          }),
+        })
+          .then((respuesta) => respuesta.json())
+          .then((datos) => {
+            console.log(datos);
+            setCurso(datos.data[0].horario);
+            setIsloading(false);
+          });
+
+        console.log(datos)
         setUsuario(datos);
+        setAlergia(datos.usuario.intolerancia)
+        console.log(usuario);
+        setIsloading(true);
+        fetch("/comedor", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            intolerancia: datos.usuario.intolerancia,
+          }),
+        })
+          .then((respuesta) => respuesta.json())
+          .then((datos) => {
+            console.log(datos);
+            setIntolerancia(datos.data[0].comedor);
+            setIsloading(false);
+          });
+      
       });
     console.log("1");
-    fetch("/horarios", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        curso: usuario.usuario.curso,
-      }),
-    })
-      .then((respuesta) => respuesta.json())
-      .then((datos) => {
-        console.log(datos);
-        setCurso(datos.data[0].horario);
-        setIsloading(false);
-      });
+ 
   }, []);
 
   const primera = curso.map((horario) => {
@@ -281,8 +304,8 @@ function Usuario(props) {
   }
   /* ------------------------------------------------------------------------COMEDOR------------------------------------------------------------------------------------------- */
 
-  useEffect(() => {
-    console.log(props.usuario.usuario);
+/*   useEffect(() => {
+    console.log(usuario);
     setIsloading(true);
     fetch("/comedor", {
       method: "PUT",
@@ -290,7 +313,7 @@ function Usuario(props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        intolerancia: usuario.usuario.intolerancia,
+        intolerancia: alergia,
       }),
     })
       .then((respuesta) => respuesta.json())
@@ -299,7 +322,7 @@ function Usuario(props) {
         setIntolerancia(datos.data[0].comedor);
         setIsloading(false);
       });
-  }, []);
+  }, []); */
 
   const primeros = intolerancia.map((comedor) => {
     return <td>{comedor.primero}</td>;

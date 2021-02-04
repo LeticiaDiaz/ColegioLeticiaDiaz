@@ -203,6 +203,7 @@ app.put("/horarios", function (req, res) {
 /* ------------------------------------------------------------------------COMEDOR------------------------------------------------------------------------------------------- */
 
 app.put("/comedor", function (req, res) {
+  console.log(req.body)
   db.collection("intolerancia")
     .find({ intolerancia: req.body.intolerancia })
     .toArray(function (err, data) {
